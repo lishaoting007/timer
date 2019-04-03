@@ -3,10 +3,27 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [{
     path: '/',
-    name: 'index',
-    component: () => import('@/views/index')
-  }]
+    name: 'layout',
+    redirect: '/index',
+    component: () => import('@/views/layout'),
+    children: [{
+      path: 'index',
+      name: 'index',
+      meta: {
+        title: '首页'
+      },
+      component: () => import('@/views/index')
+    }]
+  },
+  {
+    path: '/countdown',
+    name: 'countdown',
+    component: () => import('@/views/countdown')
+  }
+  ]
 })
+
+export default router
