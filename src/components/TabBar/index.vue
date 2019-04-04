@@ -3,17 +3,17 @@
     <Tabbar v-model="selected"
             :fixed="true">
       <TabItem id="index">
-        <i class="iconfont icon-house"
+        <i class="iconfont icon-xiangmubianhao-"
            slot="icon"></i>
         待办
       </TabItem>
       <TabItem id="countdown">
-        <i class="iconfont icon-course"
+        <i class="iconfont icon-tongji"
            slot="icon"></i>
         统计
       </TabItem>
       <TabItem id="person">
-        <i class="iconfont icon-ren"
+        <i class="iconfont icon-gerenzhongxin"
            slot="icon"></i>
         个人中心
       </TabItem>

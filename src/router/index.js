@@ -22,6 +22,11 @@ const router = new Router({
     path: '/countdown',
     name: 'countdown',
     component: () => import('@/views/countdown')
+  },
+  {
+    path: '/123',
+    name: '123',
+    component: () => import('@/views/countdown/components/index.vue')
   }
   ]
 })

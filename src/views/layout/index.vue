@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <router-view></router-view>
     <TabBar></TabBar>
   </div>
@@ -15,5 +15,4 @@ export default {
 }
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

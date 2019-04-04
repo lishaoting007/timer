@@ -11,6 +11,7 @@ import {
   instance
 } from '@/utils'
 import api from '@/utils/api.js'
+import 'iview/dist/styles/iview.css' // 引入iview样式
 
 Vue.component('countdown', VueCountdown) // 注册countDown全局组件
 Vue.prototype.$axios = instance // 将axios注册到Vue全局
