@@ -21,6 +21,7 @@
       <Cell class="cellItem"
             title="标题文字"
             label="25min"
+            to='/countdown'
             v-for="(item, index) in cellList"
             :key="index"
             :right="[{content: 'Delete',

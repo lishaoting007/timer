@@ -2,54 +2,59 @@
   <div>
     <template>
       <Ring :percent="percent"
-            :stroke-color="color">
+            :stroke-color="color"
+            layer-color="#5b5b5b"
+            trail-color="rgba(0,0,0,0.3)"
+            :size='200'
+            :trail-width='3'
+            :stroke-width='3'>
         <slot></slot>
       </Ring>
-      <ButtonGroup size="large">
-        <Button icon="ios-remove"></Button>
-      </ButtonGroup>
     </template>
   </div>
 </template>
 
 <script>
-import { Circle, Button, ButtonGroup, Icon } from 'iview'
+import { Circle, Icon } from 'iview'
 export default {
   name: 'ring',
   components: {
     'Ring': Circle,
-    Button,
-    ButtonGroup,
     Icon
   },
   data () {
     return {
-      percent: 100
-    }
-  },
-  computed: {
-    color () {
-      let color = '#409eff'
-      if (this.percent === 100) {
-        color = '#5cb85c'
-      }
-      return color
+      percent: 100,
+      timer: null
     }
   },
   methods: {
     intervalTime () {
-      setInterval(() => {
-        this.percent -= 100 / 1500
+      this.timer = setInterval(() => {
+        this.minus()
       }, 1000)
     },
     minus () {
       if (this.percent <= 0) {
         return false
       }
-      this.intervalTime()
+      this.percent -= 100 / 1500
     },
     timeEnd () {
       this.percent = 0
+    },
+    clearMinus () {
+      // const timer = this.intervalTime()
+      clearInterval(this.timer)
+    }
+  },
+  computed: {
+    color () {
+      let color = '#5cb85c'
+      if (this.percent === 100) {
+        color = '#5cb85c'
+      }
+      return color
     }
   }
 }

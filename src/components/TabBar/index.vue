@@ -7,7 +7,7 @@
            slot="icon"></i>
         待办
       </TabItem>
-      <TabItem id="countdown">
+      <TabItem id="statistics">
         <i class="iconfont icon-tongji"
            slot="icon"></i>
         统计
@@ -50,6 +50,6 @@ export default {
 
 <style scoped>
 .iconfont {
-  font-size: 26px;
+  font-size: 20px;
 }
 </style>
