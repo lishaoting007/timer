@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="tabBarWrap">
     <Tabbar v-model="selected"
             :fixed="true">
       <TabItem id="index">
@@ -49,6 +49,9 @@ export default {
 </script>
 
 <style scoped>
+.tabBarWrap {
+  height: p2r(96);
+}
 .iconfont {
   font-size: 20px;
 }

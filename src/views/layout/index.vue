@@ -1,21 +1,37 @@
 <template>
   <div class="container">
-    <NavBar></NavBar>
-    <router-view></router-view>
+    <transition>
+      <router-view></router-view>
+    </transition>
     <TabBar></TabBar>
   </div>
 </template>
 
 <script>
 import TabBar from '@/components/TabBar'
-import NavBar from '@/components/NavBar'
 export default {
   name: 'layout',
   components: {
-    TabBar,
-    NavBar
+    TabBar
   }
 }
 </script>
 
-<style scoped></style>
+<style scoped lang='scss'>
+.container {
+  overflow-x: hidden;
+}
+.v-enter {
+  opacity: 0;
+  transform: translateX(100%);
+}
+.v-leave-to {
+  opacity: 0;
+  transform: translateX(-100%);
+  position: absolute;
+}
+.v-enter-active,
+.v-leave-active {
+  transition: all ease 0.5s;
+}
+</style>
