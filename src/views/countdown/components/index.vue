@@ -32,6 +32,7 @@ export default {
     intervalTime () {
       this.timer = setInterval(() => {
         this.minus()
+        console.log('11')
       }, 1000)
     },
     minus () {
@@ -44,13 +45,13 @@ export default {
       this.percent = 0
     },
     clearMinus () {
-      // const timer = this.intervalTime()
-      clearInterval(this.timer)
+      const timer = this.intervalTime()
+      clearInterval(timer)
     }
   },
   computed: {
     color () {
-      let color = '#5cb85c'
+      let color = '#97FFFF'
       if (this.percent === 100) {
         color = '#5cb85c'
       }

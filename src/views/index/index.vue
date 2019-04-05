@@ -1,56 +1,58 @@
 <template>
   <div class="container">
-    <Header class="header"
-            fixed>
-      <div class="left"
-           slot="left">待办</div>
-      <div class="right"
-           slot="right">
-        <i class="iconfont icon-jiahao"
-           @click="showInput"></i>
-        <i class="iconfont icon-gengduo"></i>
-      </div>
-    </Header>
-    <div class="empty"></div>
-    <transition-group>
-      <div class="masking"
-           v-show="isShow"
-           key="masking"></div>
-      <div class="addToDo"
-           v-show="isShow"
-           key="addToDo">
-        <div class="addTop">
-          <div class="addTopLeft">添加待办</div>
-          <div class="icons">
-            <i class="iconfont icon-duihao"
-               @click="addCell"></i>
-            <i class="iconfont icon-cuohao"
-               @click="clearShow"></i>
+    <div class="Wrap">
+      <Header class="header"
+              fixed>
+        <div class="left"
+             slot="left">待办</div>
+        <div class="right"
+             slot="right">
+          <i class="iconfont icon-jiahao"
+             @click="showInput"></i>
+          <i class="iconfont icon-gengduo"></i>
+        </div>
+      </Header>
+      <div class="empty"></div>
+      <transition-group>
+        <div class="masking"
+             v-show="isShow"
+             key="masking"></div>
+        <div class="addToDo"
+             v-show="isShow"
+             key="addToDo">
+          <div class="addTop">
+            <div class="addTopLeft">添加待办</div>
+            <div class="icons">
+              <i class="iconfont icon-duihao"
+                 @click="addCell"></i>
+              <i class="iconfont icon-cuohao"
+                 @click="clearShow"></i>
+            </div>
+          </div>
+          <div class="addBottom">
+            <i class="iconfont icon-shijian"></i>
+            <input type="text"
+                   class="input"
+                   v-model="cellItem.name">
           </div>
         </div>
-        <div class="addBottom">
-          <i class="iconfont icon-shijian"></i>
-          <input type="text"
-                 class="input"
-                 v-model="cellItem.name">
-        </div>
-      </div>
-    </transition-group>
-    <div class="cellWrap">
-      <Cell class="cellItem"
-            :title="item.name"
-            label="25min"
-            v-for="(item, index) in cellList"
-            :key="index"
-            :right="[{content: 'Delete',
+      </transition-group>
+      <div class="cellWrap">
+        <Cell class="cellItem"
+              :title="item.name"
+              label="25min"
+              v-for="(item, index) in cellList"
+              :key="index"
+              :right="[{content: 'Delete',
             style: { background: 'red', color: '#fff' },
             handler: () => cellList.splice(index,1)}]">
-        <slot>
-          <router-link :to='{path: "/countdown"}'>
-            <button class="startBtn">开始</button>
-          </router-link>
-        </slot>
-      </Cell>
+          <slot>
+            <router-link :to='{path: "/countdown"}'>
+              <button class="startBtn">开始</button>
+            </router-link>
+          </slot>
+        </Cell>
+      </div>
     </div>
   </div>
 </template>
@@ -90,7 +92,10 @@ export default {
 <style scoped lang='scss'>
 @import "@/style/scss/p2r.scss";
 .container {
-  position: relative;
+  .Wrap {
+    position: relative;
+  }
+
   .left {
     font-size: p2r(36);
   }
@@ -111,8 +116,8 @@ export default {
     height: p2r(182);
   }
   .masking {
-    z-index: 1;
-    position: absolute;
+    z-index: 30;
+    position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
@@ -122,10 +127,10 @@ export default {
     height: p2r(1334);
   }
   .addToDo {
+    z-index: 998;
     position: absolute;
     top: p2r(436);
     left: p2r(100);
-    z-index: 2;
     width: p2r(554);
     height: p2r(176);
     .addTop {
@@ -173,6 +178,7 @@ export default {
     margin: 0 p2r(40);
     padding-bottom: p2r(106);
     width: p2r(670);
+    height: p2r(1000);
     .cellItem {
       margin-bottom: p2r(20);
       height: p2r(130);

@@ -4,7 +4,9 @@
          alt="../../assets/hai.jpg"
          class="img">
     <div class="masking"></div>
-    <div class="iconfonts"></div>
+    <div class="iconfonts">
+      <i class="iconfont icon-fanhui"></i>
+    </div>
     <div class="textWrap">
       <div class="text">习惯于绝望比绝望本身更令人恐惧</div>
     </div>
@@ -28,28 +30,40 @@
       <div>正在进行中</div>
     </div>
     <div class="btns">
-      <i class="iconfont icon-taiyang"
-         @click="startCountdown"></i>
+      <i class="iconfont icon-taiyang"></i>
+      <i class="iconfont icon-kaishi"
+         @click="startCountdown"
+         v-show="isShow"></i>
       <i class="iconfont icon-stop-01"
-         @click="abortCountdown"></i>
-      <i class="iconfont icon-k-i-reset"></i>
-      <i class="iconfont icon-jieshu"
-         @click="endCountdown"></i>
+         @click="abortCountdown"
+         v-show="!isShow"></i>
+      <i class="iconfont icon-k-i-reset"
+         @click="msg"></i>
+      <router-link :to='{path:"/index"}'>
+        <i class="iconfont icon-jieshu"
+           @click="endCountdown"></i>
+      </router-link>
     </div>
   </div>
 </template>
 
 <script>
 import Ring from './components'
-
+import { MessageBox } from 'mint-ui'
 export default {
   components: {
     Ring
+  },
+  data () {
+    return {
+      isShow: true
+    }
   },
   methods: {
     startCountdown () {
       return new Promise(resolve => {
         this.$refs.countdown.start()
+        this.toggleShow()
         resolve()
       }).then(() => {
         this.$refs.ring.intervalTime()
@@ -59,6 +73,7 @@ export default {
       // this.$refs.countdown.abort()
       return new Promise(resolve => {
         this.$refs.countdown.abort()
+        this.toggleShow()
         resolve()
       }).then(() => {
         this.$refs.ring.clearMinus()
@@ -69,7 +84,22 @@ export default {
         this.$refs.countdown.end()
         resolve()
       }).then(() => {
-        this.$refs.ring.timeEnd()
+        this.$refs.ring.clearMinus()
+      })
+    },
+    toggleShow () {
+      this.isShow = !this.isShow
+    },
+    msg () {
+      MessageBox({
+        title: '提示',
+        message: '确定执行此操作?',
+        showCancelButton: false,
+        cancelButtonText: '222'
+      })
+      MessageBox.confirm('确定执行此操作?').then(action => {
+        this.endCountdown()
+        this.$router.push({ name: 'index' })
       })
     }
   }
