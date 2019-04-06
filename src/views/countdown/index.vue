@@ -15,7 +15,8 @@
             ref='ring'
             @sendStart='startCountdown'
             @sendEnd='endCountdown'>
-        <countdown :time='25* 60 * 1000'
+        <countdown class="countdownText"
+                   :time='25* 60 * 1000'
                    :auto-start='false'
                    ref='countdown'
                    :tag="'h1'">
@@ -46,7 +47,7 @@
 </template>
 
 <script>
-import Ring from './components'
+import Ring from './components/vantCircle'
 import { MessageBox } from 'mint-ui'
 export default {
   components: {
@@ -62,20 +63,16 @@ export default {
       return new Promise(resolve => {
         this.$refs.countdown.start()
         this.toggleShow()
+        this.$refs.ring.toggle()
         resolve()
       }).then(() => {
         this.$refs.ring.intervalTime()
       })
     },
     abortCountdown () {
-      // this.$refs.countdown.abort()
-      return new Promise(resolve => {
-        this.$refs.countdown.abort()
-        this.toggleShow()
-        resolve()
-      }).then(() => {
-        this.$refs.ring.clearMinus()
-      })
+      this.$refs.countdown.abort()
+      this.toggleShow()
+      this.$refs.ring.toggle()
     },
     endCountdown () {
       this.$refs.countdown.end()

@@ -6,7 +6,10 @@
   }
 
   .left {
-    font-size: p2r(36);
+    height: p2r(154);
+    line-height: p2r(154);
+    font-size: p2r(40);
+    color: #fff;
   }
 
   .right {
@@ -14,7 +17,6 @@
     justify-content: space-between;
     width: p2r(200);
     height: p2r(154);
-    padding-right: p2r(20);
 
     .iconfont {
       font-size: p2r(40);
@@ -42,7 +44,7 @@
 
   .addToDo {
     z-index: 998;
-    position: absolute;
+    position: fixed;
     top: p2r(436);
     left: p2r(100);
     width: p2r(554);
@@ -98,17 +100,52 @@
 
   .cellWrap {
     margin: 0 p2r(40);
-    padding-bottom: p2r(106);
+    padding-bottom: p2r(100);
     width: p2r(670);
     height: p2r(1000);
 
-    .cellItem {
+    .cellItemWrap {
       margin-bottom: p2r(20);
       height: p2r(130);
       border: p2r(2) solid #aaa;
       border-radius: p2r(100);
       color: #565656;
-      background: #fff;
+      // background-color: #44a8e0;
+
+      .cellItem {
+        justify-content: flex-start;
+        align-content: center;
+        height: p2r(130);
+        line-height: 2;
+        color: #969799;
+        font-size: p2r(50);
+        text-align: left;
+        // box-shadow: 0 0 10px rgba(61, 61, 61, 0.3) inset;
+        background: #fff;
+        text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+      }
+
+      .left {
+        background: radial-gradient(#eee, #9a9a9a);
+        text-align: right;
+      }
+
+      .right {
+        background: #f85648;
+        align-self: flex-start;
+        text-align: left;
+      }
+
+      .left,
+      .right {
+        display: inline-block;
+        width: p2r(200);
+        height: p2r(130);
+        line-height: p2r(130);
+        font-size: p2r(50);
+        color: #fff;
+
+      }
 
       .startBtn {
         width: p2r(200);
@@ -127,17 +164,18 @@
   color: #fff;
 }
 
-/deep/ .mint-cell-wrapper {
-  font-size: p2r(34);
-}
-
-/deep/.mint-header {
+/deep/.van-nav-bar {
   height: p2r(154);
-  background-color: #f85648;
+  background: #f85648;
 }
 
-/deep/ .mint-cell-wrapper {
-  padding: 0 0 0 p2r(58);
+/deep/.van-nav-bar__right {
+  right: 0;
+}
+
+/deep/.van-cell__value--alone {
+  color: #969799;
+  text-align: right;
 }
 
 .v-enter,

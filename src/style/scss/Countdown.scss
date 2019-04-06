@@ -45,6 +45,10 @@
     display: flex;
     justify-content: center;
     margin-top: p2r(208);
+
+    .countdownText {
+      margin-top: 40%;
+    }
   }
 
   .title {

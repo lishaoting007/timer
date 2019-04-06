@@ -1,17 +1,17 @@
 <template>
   <div class="container">
     <div class="Wrap">
-      <Header class="header"
-              fixed>
+      <NavBar :fixed='true'>
         <div class="left"
              slot="left">待办</div>
         <div class="right"
              slot="right">
           <i class="iconfont icon-jiahao"
              @click="showInput"></i>
-          <i class="iconfont icon-gengduo"></i>
+          <i class="iconfont icon-gengduo"
+             @click="addCell"></i>
         </div>
-      </Header>
+      </NavBar>
       <div class="empty"></div>
       <transition-group>
         <div class="masking"
@@ -38,32 +38,39 @@
         </div>
       </transition-group>
       <div class="cellWrap">
-        <Cell class="cellItem"
-              :title="item.name"
-              label="25min"
-              v-for="(item, index) in cellList"
-              :key="index">
-
-          <Button class="startBtn"
-                  @click="jumpCountdown(item.name)">
-            开始
-          </Button>
-
-        </Cell>
+        <SwipeCell class="cellItemWrap"
+                   :right-width="80"
+                   :left-width="65"
+                   v-for="(item, index) in cellList"
+                   :key="index">
+          <span slot="left"
+                class="left"
+                @click="jumpCountdown(item.name)">Start</span>
+          <CellGroup>
+            <Cell class="cellItem"
+                  :title="item.name"
+                  value="25min" />
+          </CellGroup>
+          <span slot="right"
+                class="right"
+                @click="reduceCell(index)">
+            Delete
+          </span>
+        </SwipeCell>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { CellSwipe, Button, Header } from 'mint-ui'
-
+import { SwipeCell, Dialog, Cell, CellGroup, NavBar, Toast } from 'vant'
 export default {
   name: 'index',
   components: {
-    'Cell': CellSwipe,
-    Button,
-    Header
+    SwipeCell,
+    Cell,
+    CellGroup,
+    NavBar
   },
   data () {
     return {
@@ -76,8 +83,15 @@ export default {
       this.isShow = true
     },
     addCell () {
-      this.$store.dispatch('insertEvent', this.cellItem)
-      this.isShow = false
+      if (this.cellItem.name) {
+        this.$store.dispatch('insertEvent', this.cellItem)
+        this.isShow = false
+      } else {
+        Toast({
+          message: '内容不能为空',
+          duration: 1000
+        })
+      }
     },
     clearShow () {
       this.isShow = false
@@ -85,6 +99,13 @@ export default {
     jumpCountdown (value) {
       this.$store.dispatch('changeEventIndex', value)
       this.$router.push({ name: 'countdown' })
+    },
+    reduceCell (index) {
+      Dialog.confirm({
+        message: '确定删除此事项吗？'
+      }).then(() => {
+        this.$store.dispatch('reduceEvent', index)
+      })
     }
   },
   computed: {

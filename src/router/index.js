@@ -42,7 +42,7 @@ const router = new Router({
     {
       path: '/123',
       name: '123',
-      component: () => import('@/views/countdown/components/index.vue')
+      component: () => import('@/views/statistics/components/dataPage.vue')
     }
   ]
 })

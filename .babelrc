@@ -12,6 +12,12 @@
     ["component", [{
       "libraryName": "mint-ui",
       "style": true
-    }]], "transform-vue-jsx", "transform-runtime"
+    }]],
+    ["import", {
+      "libraryName": "vant",
+      "libraryDirectory": "es",
+      "style": true
+    }],
+    "transform-vue-jsx", "transform-runtime"
   ]
 }
