@@ -25,14 +25,17 @@ export default {
   data () {
     return {
       percent: 100,
-      timer: null
+      clearTimer: null
     }
   },
   methods: {
     intervalTime () {
-      this.timer = setInterval(() => {
-        this.minus()
+      this.clearTimer = setInterval(() => {
         console.log('11')
+        this.minus()
+        if (this.percent === 0) {
+          clearInterval(this.clearTimer)
+        }
       }, 1000)
     },
     minus () {
@@ -45,8 +48,7 @@ export default {
       this.percent = 0
     },
     clearMinus () {
-      const timer = this.intervalTime()
-      clearInterval(timer)
+      this.percent = 0
     }
   },
   computed: {

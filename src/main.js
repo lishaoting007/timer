@@ -7,9 +7,8 @@ import VueCountdown from '@chenfengyuan/vue-countdown'
 import 'normalize.css/normalize.css' // 引入默认样式
 import 'amfe-flexible/index' // 引入淘宝移动端适配方案
 import '@/style/scss/init.scss'
-import {
-  instance
-} from '@/utils'
+import store from './store'
+import { instance } from '@/utils'
 import api from '@/utils/api.js'
 import 'iview/dist/styles/iview.css' // 引入iview样式
 
@@ -23,6 +22,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  store,
   components: {
     App
   },
