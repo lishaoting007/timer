@@ -43,6 +43,11 @@ const router = new Router({
       path: '/123',
       name: '123',
       component: () => import('@/views/statistics/components/dataPage.vue')
+    },
+    {
+      path: '/111',
+      name: '111',
+      component: () => import('@/views/test')
     }
   ]
 })

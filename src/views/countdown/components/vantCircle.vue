@@ -48,7 +48,7 @@ export default {
       this.currentRate = 0
     },
     clearMinus () {
-      this.currentRate = 0
+      this.toggleStart = false
     },
     toggle () {
       this.toggleStart = !this.toggleStart
