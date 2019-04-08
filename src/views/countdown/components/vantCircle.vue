@@ -28,6 +28,7 @@ export default {
       toggleStart: false
     }
   },
+  mounted () { },
   methods: {
     intervalTime () {
       this.clearTimer = setInterval(() => {

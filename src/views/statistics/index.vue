@@ -10,14 +10,19 @@
       </div>
     </NavBar>
     <div class="empty"></div>
+    <div>
+      <dataPage></dataPage>
+    </div>
   </div>
 </template>
 
 <script>
 import { NavBar } from 'vant'
+import dataPage from '@/views/statistics/components/dataPage.vue'
 export default {
   components: {
-    NavBar
+    NavBar,
+    dataPage
   }
 }
 </script>

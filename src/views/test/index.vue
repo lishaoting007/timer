@@ -1,70 +1,36 @@
 <template>
   <div>
-    <v-chart :data="data">
-      <v-scale y
-               :options="yOptions" />
-      <v-tooltip disabled />
-      <v-pie :radius="0.85"
-             series-field="name" />
-      <v-legend :options="legendOptions" />
-    </v-chart>
+    <ve-line :data="chartData"></ve-line>
   </div>
 </template>
 
 <script>
-import { VChart, VLine, VArea, VTooltip, VLegend, VBar, VPie, VScale } from 'vux'
-
-const map = {
-  '芳华': '40%',
-  '妖猫传': '20%',
-  '机器之血': '18%',
-  '心理罪': '15%',
-  '寻梦环游记': '5%',
-  '其他': '2%'
-}
-
+import VeLine from 'v-charts/lib/line.common'
 export default {
-  components: {
-    VChart,
-    VLine,
-    VArea,
-    VTooltip,
-    VLegend,
-    VBar,
-    VPie,
-    VScale
-  },
+  components: { VeLine },
   data () {
     return {
-      legendOptions: {
-        position: 'right',
-        itemFormatter (val) {
-          return val + '  ' + map[val]
-        }
-      },
-      yOptions: {
-        formatter (val) {
-          return val * 100 + '%'
-        }
-      },
-      map,
-      data: [
-        // { name: '芳华', percent: 0.2, a: '1' },
-        { name: '妖猫传', percent: 0.2, a: '1' },
-        { name: '机器之血', percent: 0.18, a: '1' },
-        { name: '心理罪', percent: 0.15, a: '1' },
-        { name: '其他', percent: 0.02, a: '1' },
-        { name: '1212', percent: 0.2, a: '1' },
-        { name: '寻梦环游记', percent: 0.05, a: '1' },
-        { name: '22', percent: 0.05, a: '1' },
-        { name: '2222', percent: 0.05, a: '1' },
-        { name: '222', percent: 0.05, a: '1' },
-        { name: '寻梦2222环游记', percent: 0.05, a: '1' }
-      ]
+      chartData: {
+        columns: ['日期', '销售量'],
+        rows: [
+          { '日期': '1月1日', '销售量': 123 },
+          { '日期': '1月2日', '销售量': 1223 },
+          { '日期': '1月3日', '销售量': 2123 },
+          { '日期': '1月4日', '销售量': 4123 },
+          { '日期': '1月5日', '销售量': 3123 },
+          { '日期': '1月6日', '销售量': 7123 },
+          { '日期': '1月7日', '销售量': 7123 },
+          { '日期': '1月8日', '销售量': 7454 },
+          { '日期': '1月9日', '销售量': 5645 },
+          { '日期': '1月10日', '销售量': 5645 },
+          { '日期': '1月11日', '销售量': 7123 },
+          { '日期': '1月12日', '销售量': 7156 },
+          { '日期': '1月13日', '销售量': 7173 },
+          { '日期': '1月14日', '销售量': 7134 },
+          { '日期': '1月15日', '销售量': 7485 }
+        ]
+      }
     }
-  },
-  methods: {
-
   }
 }
 </script>

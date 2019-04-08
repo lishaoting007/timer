@@ -5,8 +5,9 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    toDoEvent: [{ name: '学习' }, { name: '跑步' }],
-    eventIndex: ''
+    toDoEvent: [{ name: '向右滑动开始' }, { name: '向左滑动删除' }],
+    eventIndex: '',
+    finishEvent: []
   },
   mutations: {
     INSTER_EVENT ({ toDoEvent }, payload) {

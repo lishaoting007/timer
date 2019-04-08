@@ -14,16 +14,16 @@
     "@chenfengyuan/vue-countdown": "^1.1.0",
     "amfe-flexible": "^2.2.1",
     "axios": "^0.18.0",
+    "echarts": "^4.2.1",
     "iview": "^3.3.3",
     "mint-ui": "^2.2.13",
     "normalize.css": "^8.0.1",
+    "v-charts": "^1.19.0",
     "vant": "^1.6.12",
     "vue": "^2.6.10",
     "vue-cli-plugin-iview": "^1.0.6",
     "vue-router": "^3.0.1",
-    "vuex": "^3.1.0",
-    "vux": "^2.9.2",
-    "vux-loader": "^1.2.9"
+    "vuex": "^3.1.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

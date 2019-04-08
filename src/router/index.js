@@ -47,7 +47,7 @@ const router = new Router({
     {
       path: '/111',
       name: '111',
-      component: () => import('@/views/test')
+      component: () => import('@/views/statistics/components/line.vue')
     }
   ]
 })
