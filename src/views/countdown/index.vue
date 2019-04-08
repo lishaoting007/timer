@@ -13,10 +13,11 @@
     <div class="ringWrap">
       <Ring class="ring"
             ref='ring'
+            :sendName='name'
             @sendStart='startCountdown'
             @sendEnd='endCountdown'>
         <countdown class="countdownText"
-                   :time='25* 60 * 1000'
+                   :time='time'
                    :auto-start='false'
                    ref='countdown'
                    :tag="'h1'">
@@ -55,6 +56,7 @@ export default {
   },
   data () {
     return {
+      time: 25 * 60 * 1000,
       isShow: true
     }
   },

@@ -35,7 +35,7 @@ const router = new Router({
       ]
     },
     {
-      path: '/countdown/:id',
+      path: '/countdown',
       name: 'countdown',
       component: () => import('@/views/countdown')
     },

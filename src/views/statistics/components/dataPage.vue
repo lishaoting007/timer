@@ -2,7 +2,7 @@
   <div class="dataPageWrap">
     <div class="allData bgc bdradius">
       <div class="allDataTop topItem">
-        <div class="text">累计数据</div>
+        <div class="text">今日累计数据</div>
       </div>
       <div class="allDataBottom">
         <div class="bottom-left">
@@ -99,6 +99,22 @@ export default {
   components: {
     pie,
     VeLine
+  },
+  data () {
+    return {
+    }
+  },
+  computed: {
+    today () {
+      const date = new Date()
+      const month = date.getMonth() + 1
+      // const year = date.getFullYear()
+      const day = date.getDate()
+      // const today = `${year}年${month}月${day}日`
+      // const thisMonth = `${year}年${month}月`
+      const monthDay = `${month}年${day}月`
+      return monthDay
+    }
   }
 }
 </script>

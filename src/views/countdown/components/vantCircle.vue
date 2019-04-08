@@ -21,6 +21,9 @@ export default {
   components: {
     'Ring': Circle
   },
+  props: {
+    sendName: [String]
+  },
   data () {
     return {
       currentRate: 100,
@@ -28,12 +31,10 @@ export default {
       toggleStart: false
     }
   },
-  mounted () { },
   methods: {
     intervalTime () {
       this.clearTimer = setInterval(() => {
-        console.log(this.toggleStart)
-        if (this.toggleStart === false || this.currentRate === 0) {
+        if (this.toggleStart === false || this.currentRate <= 0) {
           clearInterval(this.clearTimer)
         }
         this.minus()
@@ -43,10 +44,7 @@ export default {
       if (this.currentRate <= 0) {
         return false
       }
-      this.currentRate -= 100 / 1500
-    },
-    timeEnd () {
-      this.currentRate = 0
+      this.currentRate -= 50
     },
     clearMinus () {
       this.toggleStart = false
@@ -62,6 +60,21 @@ export default {
         color = '#5cb85c'
       }
       return color
+    }
+  },
+  watch: {
+    currentRate () {
+      if (this.currentRate <= 0) {
+        const date = new Date()
+        const month = date.getMonth() + 1
+        const year = date.getFullYear()
+        const day = date.getDate()
+        const today = `${year}年${month}月${day}日`
+        const thisMonth = `${year}年${month}月`
+        const monthDay = `${month}年${day}月`
+        this.$store.dispatch('insertFinishEvent', { date: today, name: this.sendName, time: 25, year, month, day })
+        this.$store.dispatch('insertDayTime', { date: monthDay, time: 25, eventNum: 1, month: thisMonth })
+      }
     }
   }
 }
