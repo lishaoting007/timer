@@ -16,6 +16,7 @@
 
 <script>
 import { Circle } from 'vant'
+import moment from 'moment'
 export default {
   name: 'ring',
   components: {
@@ -66,14 +67,11 @@ export default {
     currentRate () {
       if (this.currentRate <= 0) {
         const date = new Date()
-        const month = date.getMonth() + 1
-        const year = date.getFullYear()
-        const day = date.getDate()
-        const today = `${year}年${month}月${day}日`
-        const thisMonth = `${year}年${month}月`
-        const monthDay = `${month}年${day}月`
-        this.$store.dispatch('insertFinishEvent', { date: today, name: this.sendName, time: 25, year, month, day })
-        this.$store.dispatch('insertDayTime', { date: monthDay, time: 25, eventNum: 1, month: thisMonth })
+        const today = moment(date).format('YYYY年MM月DD日')
+        const thisMonth = moment(date).format('YYYY年MM月')
+        this.$store.dispatch('insertFinishEvent', { date: today, name: this.sendName, time: 25 })
+        this.$store.dispatch('insertDayTime', { date: today, time: 25, eventNum: 1, month: thisMonth })
+        this.$store.dispatch('changeAllDate')
       }
     }
   }

@@ -10,6 +10,12 @@
 import VeLine from 'v-charts/lib/line.common'
 export default {
   components: { VeLine },
+  props: {
+    sendThisMonth: {
+      type: String,
+      default: ''
+    }
+  },
   data () {
     this.chartSettings = {
       radius: 100,
@@ -19,8 +25,21 @@ export default {
     return {
       chartData: {
         columns: ['date', 'time'],
-        rows: [...this.$store.state.dayTime, { date: '2019年4月10日', time: 250 }]
+        rows: []
       }
+    }
+  },
+  created () {
+    this.getDayTime()
+  },
+  methods: {
+    getDayTime () {
+      this.chartData.rows = this.$store.getters.filterDayTimeasMonth(this.sendThisMonth)
+    }
+  },
+  watch: {
+    sendThisMonth () {
+      this.getDayTime()
     }
   }
 }

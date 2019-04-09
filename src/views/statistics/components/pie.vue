@@ -10,6 +10,12 @@
 import Pie from 'v-charts/lib/pie.common'
 export default {
   components: { Pie },
+  props: {
+    sendDate: {
+      type: String,
+      default: ''
+    }
+  },
   data () {
     this.chartSettings = {
       radius: 100,
@@ -19,8 +25,21 @@ export default {
     return {
       chartData: {
         columns: ['name', 'time'],
-        rows: this.$store.state.finishEvent
+        rows: []
       }
+    }
+  },
+  created () {
+    this.getFinishDate()
+  },
+  methods: {
+    getFinishDate () {
+      this.chartData.rows = this.$store.getters.filterFinishEvent(this.sendDate)
+    }
+  },
+  watch: {
+    sendDate () {
+      this.getFinishDate()
     }
   }
 }

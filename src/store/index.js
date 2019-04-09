@@ -1,14 +1,28 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    toDoEvent: [{ name: '向右滑动开始' }, { name: '向左滑动删除' }],
-    eventIndex: '',
-    finishEvent: [],
-    dayTime: []
+    toDoEvent: [{ name: '向右滑动开始' }, { name: '向左滑动删除' }], // [{name}]
+    eventIndex: '', // {name}
+    finishEvent: [], // [{date: xxxx年xx月xx日, name, time, year, month, day}]
+    dayTime: [], // [{date:, eventNum, month: xxxx年xx月, time}]
+    allDate: { eventNum: 0, time: 0, average: 0 }
+  },
+  getters: {
+    filterFinishEvent: ({ finishEvent }) => today => {
+      return finishEvent.filter(item => item.date === today)
+    },
+    filterDayTime: ({ dayTime }) => today => {
+      return dayTime.filter(item => item.date === today)
+    },
+    getAllDate: ({ allDate }) => allDate,
+    filterDayTimeasMonth: ({ dayTime }) => today => {
+      return dayTime.filter(item => item.month === today)
+    }
   },
   mutations: {
     INSTER_EVENT ({ toDoEvent }, payload) {
@@ -26,7 +40,6 @@ const store = new Vuex.Store({
       )
       if (finishEventItem) {
         finishEventItem.time += 25
-        finishEventItem.eventNum += 1
       } else {
         finishEvent.push(payload)
       }
@@ -35,9 +48,15 @@ const store = new Vuex.Store({
       let dayItem = dayTime.find(n => n.date === payload.date)
       if (dayItem) {
         dayItem.time += 25
+        dayItem.eventNum += 1
       } else {
         dayTime.push(payload)
       }
+    },
+    CHANGE_ALL_DATE ({ allDate }) {
+      allDate.time += 25
+      allDate.eventNum += 1
+      allDate.average = allDate.time / allDate.eventNum
     }
   },
   actions: {
@@ -55,8 +74,21 @@ const store = new Vuex.Store({
     },
     insertDayTime ({ commit }, payload) {
       commit('INSERT_DAY_TIME', payload)
+    },
+    changeAllDate ({ commit }) {
+      commit('CHANGE_ALL_DATE')
     }
-  }
+  },
+  plugins: [
+    createPersistedState({
+      storage: {
+        getItem: key => localStorage.getItem(key),
+        setItem: (key, value) =>
+          localStorage.setItem(key, value, { expires: 3, secure: true }),
+        removeItem: key => localStorage.removeItem(key)
+      }
+    })
+  ]
 })
 
 export default store
