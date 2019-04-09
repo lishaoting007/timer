@@ -1,5 +1,9 @@
 @import "@/style/scss/p2r.scss";
 
+h1 {
+  font-size: p2r(90);
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -47,7 +51,7 @@
     margin-top: p2r(208);
 
     .countdownText {
-      margin-top: 40%;
+      margin-top: 32%;
     }
   }
 

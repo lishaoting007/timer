@@ -8,8 +8,7 @@
              slot="right">
           <i class="iconfont icon-jiahao"
              @click="showInput"></i>
-          <i class="iconfont icon-gengduo"
-             @click="addCell"></i>
+          <i class="iconfont icon-gengduo"></i>
         </div>
       </NavBar>
       <div class="empty"></div>

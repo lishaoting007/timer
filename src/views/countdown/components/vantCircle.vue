@@ -45,13 +45,16 @@ export default {
       if (this.currentRate <= 0) {
         return false
       }
-      this.currentRate -= 50
+      this.currentRate -= 100 / 1500
     },
     clearMinus () {
       this.toggleStart = false
     },
     toggle () {
       this.toggleStart = !this.toggleStart
+    },
+    sendShow () {
+      this.$emit('countdownShow', false)
     }
   },
   computed: {
@@ -66,6 +69,8 @@ export default {
   watch: {
     currentRate () {
       if (this.currentRate <= 0) {
+        this.sendShow()
+        console.log('123')
         const date = new Date()
         const today = moment(date).format('YYYY年MM月DD日')
         const thisMonth = moment(date).format('YYYY年MM月')

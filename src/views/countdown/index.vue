@@ -14,15 +14,28 @@
       <Ring class="ring"
             ref='ring'
             :sendName='name'
+            @countdownShow='toggleCountShow'
             @sendStart='startCountdown'
             @sendEnd='endCountdown'>
         <countdown class="countdownText"
+                   v-show="showCountdown"
                    :time='time'
                    :auto-start='false'
                    ref='countdown'
                    :tag="'h1'">
           <template slot-scope="props">{{ props.minutes }}:{{ props.seconds }} </template>
         </countdown>
+        <div class="countdownText"
+             v-show="!showCountdown">
+          <countdown ref="countdown1"
+                     :time='timeOut'
+                     :auto-start='false'
+                     :tag="'h1'">
+            <template slot-scope="props">{{ props.minutes }}:{{ props.seconds }} </template>
+          </countdown>
+          <h2>休息时间</h2>
+        </div>
+
       </Ring>
     </div>
     <div class="title">
@@ -57,7 +70,9 @@ export default {
   data () {
     return {
       time: 25 * 60 * 1000,
-      isShow: true
+      timeOut: 5 * 60 * 1000,
+      isShow: true,
+      showCountdown: true
     }
   },
   methods: {
@@ -78,10 +93,14 @@ export default {
     },
     endCountdown () {
       this.$refs.countdown.end()
+      this.$refs.countdown1.end()
       this.$refs.ring.clearMinus()
     },
     toggleShow () {
       this.isShow = !this.isShow
+    },
+    toggleCountShow (data) {
+      this.showCountdown = data
     },
     circulation () {
       MessageBox.confirm('确定').then(action => {
@@ -97,6 +116,13 @@ export default {
   computed: {
     name () {
       return this.$store.state.eventIndex
+    }
+  },
+  watch: {
+    showCountdown () {
+      if (!this.showCountdown) {
+        this.$refs.countdown1.start()
+      }
     }
   }
 }
