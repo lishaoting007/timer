@@ -1,7 +1,7 @@
 @import './p2r.scss';
 
 body {
-  font-size: 14px !important;
+  font-size: p2r(28) !important;
 }
 
 ul {

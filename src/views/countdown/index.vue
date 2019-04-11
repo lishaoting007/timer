@@ -61,11 +61,13 @@
 </template>
 
 <script>
+import VueCountdown from '@chenfengyuan/vue-countdown'
 import Ring from './components/vantCircle'
 import { MessageBox } from 'mint-ui'
 export default {
   components: {
-    Ring
+    Ring,
+    'countdown': VueCountdown
   },
   data () {
     return {

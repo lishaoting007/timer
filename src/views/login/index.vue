@@ -9,7 +9,7 @@
       <dy-input v-model="formData.password"
                 placeholder="请输入您的密码"
                 :type="type">
-        <i class="iconfont icon-yincang"
+        <i class="iconfont icon-yanjing1"
            @click="toggleType"
            :class="{'icon-yanjing': type == 'text'}"
            slot="icon"></i>
