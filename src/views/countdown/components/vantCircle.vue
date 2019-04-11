@@ -45,7 +45,7 @@ export default {
       if (this.currentRate <= 0) {
         return false
       }
-      this.currentRate -= 100 / 1500
+      this.currentRate -= 50
     },
     clearMinus () {
       this.toggleStart = false
@@ -70,7 +70,6 @@ export default {
     currentRate () {
       if (this.currentRate <= 0) {
         this.sendShow()
-        console.log('123')
         const date = new Date()
         const today = moment(date).format('YYYY年MM月DD日')
         const thisMonth = moment(date).format('YYYY年MM月')

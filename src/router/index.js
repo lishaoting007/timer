@@ -38,6 +38,31 @@ const router = new Router({
       path: '/countdown',
       name: 'countdown',
       component: () => import('@/views/countdown')
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('@/views/login')
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: () => import('@/views/register')
+    },
+    {
+      path: '/111',
+      name: '111',
+      component: () => import('@/views/login/test.vue')
+    },
+    {
+      path: '/222',
+      name: '222',
+      component: () => import('@/views/register/test.vue')
+    },
+    {
+      path: '/333',
+      name: '333',
+      component: () => import('@/views/person/components/test.vue')
     }
   ]
 })

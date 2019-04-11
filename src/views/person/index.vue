@@ -10,14 +10,17 @@
       </div>
     </NavBar>
     <div class="empty"></div>
+    <page></page>
   </div>
 </template>
 
 <script>
 import { NavBar } from 'vant'
+import page from './components/test'
 export default {
   components: {
-    NavBar
+    NavBar,
+    page
   }
 }
 </script>
@@ -28,7 +31,7 @@ export default {
   position: relative;
 }
 .empty {
-  height: p2r(182);
+  height: p2r(154);
 }
 .left {
   height: p2r(154);

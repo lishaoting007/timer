@@ -1,0 +1,21 @@
+.login,
+.register {
+  .logo {
+    margin-top: 60px;
+    text-align: center;
+
+    .iconfont {
+      font-size: 100px;
+      color: #1083fe;
+    }
+  }
+
+  .router-wrap {
+    margin-top: 20px;
+    text-align: right;
+
+    a {
+      color: #1083fe;
+    }
+  }
+}

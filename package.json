@@ -20,6 +20,7 @@
     "moment": "^2.24.0",
     "normalize.css": "^8.0.1",
     "v-charts": "^1.19.0",
+    "validator": "^10.11.0",
     "vant": "^1.6.12",
     "vue": "^2.6.10",
     "vue-cli-plugin-iview": "^1.0.6",

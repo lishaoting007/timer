@@ -2,7 +2,8 @@
   <div>
     <ve-line class="pie"
              :data="chartData"
-             :settings='chartSettings'></ve-line>
+             :settings='chartSettings'>
+    </ve-line>
   </div>
 </template>
 
@@ -35,6 +36,7 @@ export default {
   methods: {
     getDayTime () {
       this.chartData.rows = this.$store.getters.filterDayTimeasMonth(this.sendThisMonth)
+      // { date: '2019年4月4日', time: 50 }, { date: '2019年4月5日', time: 150 }, { date: '2019年4月6日', time: 75 }, { date: '2019年4月7日', time: 200 }, { date: '2019年4月8日', time: 50 },
     }
   },
   watch: {
