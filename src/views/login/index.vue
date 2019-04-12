@@ -1,45 +1,60 @@
 <template>
-  <div class="container login">
-    <div class="logo">
-      <i class="iconfont icon-xuexi12"></i>
+  <div>
+    <div class="loginWrap">
+      <img class="bgimg"
+           src="@/assets/fengguang.jpg"
+           alt="@/assets/fengguang.jpg">
+      <Logo></Logo>
+      <div class="text">
+        番茄Todo 你的自我提升助手
+      </div>
+      <div class="inputWrap">
+        <label class="phoneWrap">
+          <p>请输入手机号</p>
+          <lr-input class="phone"
+                    v-model="formData.phone"
+                    :type='"text"'>
+            <i class="iconfont icon-shouji1"
+               slot='icon'></i>
+          </lr-input>
+        </label>
+        <label class="psdWrap">
+          <p>请输入密码</p>
+          <lr-input class="psd"
+                    v-model="formData.password"
+                    :type='type'>
+            <i class="iconfont"
+               @click="toggleType"
+               :class="type==='password'?'icon-yanjing1':'icon-yanjing'"
+               slot="icon"></i>
+          </lr-input>
+        </label>
+      </div>
+      <Button class="btn"
+              @click="handleLogin">登录</Button>
+      <router-link class="jumpRegister"
+                   :to="{name: 'register'}">
+        <div>没有账号？立即注册</div>
+      </router-link>
     </div>
-    <div class="inputs-wrap">
-      <dy-input v-model="formData.phone"
-                placeholder="请输入您的手机号"></dy-input>
-      <dy-input v-model="formData.password"
-                placeholder="请输入您的密码"
-                :type="type">
-        <i class="iconfont icon-yanjing1"
-           @click="toggleType"
-           :class="{'icon-yanjing': type == 'text'}"
-           slot="icon"></i>
-      </dy-input>
-    </div>
-    <div class="router-wrap">
-      <router-link to="/register">没有账号？立即注册</router-link>
-    </div>
-    <Button type="primary"
-            size="large"
-            style="margin-top: 30px;"
-            @click="handleLogin">立即登录</Button>
   </div>
 </template>
 
 <script>
-import dyInput from '@/components/P-input'
-import { Button, Toast } from 'mint-ui'
+import Logo from '@/components/Logo/tomato.vue'
+import { Button, Toast } from 'vant'
+import lrInput from '@/components/Lr-input'
 import validator from 'validator'
-
 export default {
-  name: 'login',
   components: {
-    dyInput,
-    Button
+    Logo,
+    Button,
+    lrInput
   },
   data () {
     return {
       formData: {
-        phone: '123',
+        phone: '',
         password: ''
       },
       type: 'password'
@@ -51,36 +66,41 @@ export default {
     },
     handleLogin () {
       let phoneStatus = validator.isMobilePhone(this.formData.phone, 'zh-CN')
-      let passwordStatus = validator.isLength(this.formData.password, {
-        min: 6
-      })
+      let passwordStatus = validator.isLength(this.formData.password, { min: 6, max: 20 })
       if (phoneStatus && passwordStatus) {
         this.$axios.post(this.$api.login, this.formData).then(res => {
           if (res.code === 200) {
-            let token = res.token
-            localStorage.setItem('token', token)
+            localStorage.setItem('token', res.token)
             Toast({
-              message: '登录成功'
+              message: '登录成功',
+              duration: 1000
             })
             setTimeout(() => {
-              this.$router.push({
-                name: 'person'
-              })
-            }, 800)
+              this.$router.push({ name: 'person' })
+            }, 1000)
           } else {
             Toast({
-              message: res.msg
+              message: res.msg,
+              duration: 800
             })
           }
         })
       } else {
-        Toast({
-          message: '不是合法的手机号码或者密码长度不够6位'
-        })
+        if (!phoneStatus) {
+          Toast({
+            message: '请输入合法手机号',
+            duration: '800'
+          })
+        } else if (!passwordStatus) {
+          Toast({
+            message: '请输入6位以上20位以下密码',
+            duration: 800
+          })
+        }
       }
     }
   }
 }
 </script>
 
-<style scoped lang="scss" src="./login.scss"></style>
+<style scoped lang='scss' src='@/style/scss/login.scss'></style>

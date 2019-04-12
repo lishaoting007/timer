@@ -31,9 +31,10 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    padding-bottom: p2r(100);
+    padding-bottom: p2r(60);
     width: p2r(672);
     background: #fff;
+    border-radius: 6px;
 
     .phoneWrap {
       display: flex;
@@ -72,7 +73,6 @@
           align-self: center;
           height: p2r(50);
           line-height: p2r(50);
-          // border: none;
           font-size: p2r(24);
           text-align: center;
         }
@@ -84,33 +84,40 @@
   .btn,
   .btn1 {
     position: absolute;
-    width: p2r(564);
-    height: p2r(120);
-    background: #293550;
-    font-size: p2r(40);
+    width: p2r(586);
+    height: p2r(100);
+    line-height: p2r(100);
+    font-size: p2r(28);
+    letter-spacing: p2r(20);
     color: #fff;
+    background: #293550;
     border: none;
   }
 
-  .jumpRegister {
-    position: absolute;
-    top: p2r(840);
-    color: #fff;
-  }
 
   .btn {
-    top: p2r(670);
+    top: p2r(630);
   }
 
   .btn1 {
-    top: p2r(828);
+    top: p2r(794);
+  }
+
+  .jumpRegister,
+  .jumpLogin {
+    position: absolute;
+    color: #fff;
+    font-size: p2r(28);
+  }
+
+  .jumpRegister {
+    top: p2r(770);
   }
 
   .jumpLogin {
-    position: absolute;
-    top: p2r(988);
-    color: #fff;
+    top: p2r(934);
   }
+
 }
 
 // .inputWrap1 {

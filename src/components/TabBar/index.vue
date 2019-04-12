@@ -1,6 +1,7 @@
 <template>
-  <div class="tabBarWrap">
-    <Tabbar v-model="selected"
+  <div>
+    <Tabbar class="tabBarWrap"
+            v-model="selected"
             :fixed="true">
       <TabItem id="index">
         <i class="iconfont icon-xiangmubianhao-"
@@ -48,11 +49,22 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang='scss'>
+@import "@/style/scss/p2r.scss";
 .tabBarWrap {
-  height: p2r(96);
+  height: p2r(110);
 }
 .iconfont {
-  font-size: 20px;
+  font-size: p2r(40);
+}
+
+/deep/ .mint-tab-item-label {
+  font-size: p2r(32);
+}
+/deep/ .mint-tab-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>

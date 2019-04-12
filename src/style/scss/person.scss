@@ -39,14 +39,15 @@
 }
 
 .person-top {
-  // position: relative;
+  position: relative;
   height: p2r(280);
   clear: both;
 
   .imgWrap {
     z-index: -100;
     position: absolute;
-    top: p2r(154);
+    // top: p2r(154);
+    top: 0;
     left: 0;
     right: 0;
     bottom: 0;
@@ -59,7 +60,7 @@
     height: p2r(280);
 
     .wrap-top {
-      margin-top: p2r(30);
+      padding-top: p2r(30);
       display: flex;
       justify-content: flex-start;
 
@@ -87,16 +88,38 @@
     .wrap-bottom {
       margin-top: p2r(24);
       color: #fff;
+      margin-left: p2r(16);
 
       div:nth-child(1) {
-        margin-left: p2r(12);
         font-size: p2r(30);
         font-weight: bold;
       }
-
-      div:nth-child(2) {
-        margin: p2r(10) 0 0 p2r(12);
-      }
     }
+  }
+}
+
+.modify {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: p2r(40);
+  height: p2r(100);
+  background: #f0f5f5;
+
+  .text {
+    flex: 1;
+    padding-left: p2r(20);
+    font-size: p2r(30);
+  }
+
+  .icon-xiugai1 {
+    padding-left: p2r(20);
+    font-size: p2r(48);
+  }
+
+  .icon-qianjin {
+    justify-self: self-end;
+    padding-right: p2r(10);
+    font-size: p2r(30);
   }
 }

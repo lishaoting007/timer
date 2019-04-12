@@ -10,14 +10,14 @@
       </div>
     </NavBar>
     <div class="empty"></div>
-    <div class="person-top"
-         v-if="!userData">
+    <div v-if="!token"
+         class="person-top">
       <div class="imgWrap">
         <img src="@/assets/qiu.jpg"
              alt="@/assets/qiu.jpg">
       </div>
       <div class="wrap">
-        <router-link :to="{path: '/111'}">
+        <router-link :to="{path: '/login'}">
           <div class="wrap-top">
             <div class="jumpLogin">
               <img src="@/assets/tomato.jpg"
@@ -34,8 +34,8 @@
         </div>
       </div>
     </div>
-    <div class="person-top"
-         v-else>
+    <div v-else
+         class="person-top">
       <div class="imgWrap">
         <img src="@/assets/qiu.jpg"
              alt="@/assets/qiu.jpg">
@@ -60,16 +60,20 @@
         </div>
       </div>
     </div>
+    <div class="modify"
+         @click="jumpUserMsg">
+      <i class="iconfont icon-xiugai1"></i>
+      <span class="text">修改个人信息</span>
+      <i class="iconfont icon-qianjin"></i>
+    </div>
   </div>
 </template>
 
 <script>
 import { NavBar } from 'vant'
-import page from './components/test'
 export default {
   components: {
-    NavBar,
-    page
+    NavBar
   },
   data () {
     return {
@@ -80,9 +84,13 @@ export default {
   },
   methods: {
     getUserMsg () {
-      let token = localStorage.getItem('token')
-      if (token) {
+      if (this.token) {
         this.$store.dispatch('getUserData')
+      }
+    },
+    jumpUserMsg () {
+      if (this.token) {
+        this.$router.push({ name: 'userMsg' })
       }
     }
   },
@@ -92,10 +100,13 @@ export default {
     },
     userData () {
       return this.$store.state.userData
+    },
+    token () {
+      return localStorage.getItem('token')
     }
   }
 }
 </script>
 
-<style scoped lang='scss' src='./person.scss'>
+<style scoped lang='scss' src='@/style/scss/person.scss'>
 </style>

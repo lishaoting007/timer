@@ -30,7 +30,10 @@ const router = new Router({
         {
           path: 'statistics',
           name: 'statistics',
-          component: () => import('@/views/statistics')
+          component: () => import('@/views/statistics'),
+          meta: {
+            title: '统计'
+          }
         }
       ]
     },
@@ -50,19 +53,9 @@ const router = new Router({
       component: () => import('@/views/register')
     },
     {
-      path: '/111',
-      name: '111',
-      component: () => import('@/views/login/test.vue')
-    },
-    {
-      path: '/222',
-      name: '222',
-      component: () => import('@/views/register/test.vue')
-    },
-    {
-      path: '/333',
-      name: '333',
-      component: () => import('@/views/person/components/test.vue')
+      path: '/userMsg',
+      name: 'userMsg',
+      component: () => import('@/views/person/userMsg')
     }
   ]
 })
