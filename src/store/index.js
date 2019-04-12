@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import createPersistedState from 'vuex-persistedstate'
+import { instance } from '@/utils'
+import api from '@/utils/api.js'
 
 Vue.use(Vuex)
 
@@ -10,7 +12,8 @@ const store = new Vuex.Store({
     eventIndex: '', // {name}
     finishEvent: [], // [{date: xxxx年xx月xx日, name, time, year, month, day}]
     dayTime: [], // [{date:, eventNum, month: xxxx年xx月, time}]
-    allDate: { eventNum: 0, time: 0, average: 0 }
+    allDate: { eventNum: 0, time: 0, average: 0 },
+    userData: ''
   },
   getters: {
     filterFinishEvent: ({ finishEvent }) => today => {
@@ -22,7 +25,8 @@ const store = new Vuex.Store({
     getAllDate: ({ allDate }) => allDate,
     filterDayTimeasMonth: ({ dayTime }) => today => {
       return dayTime.filter(item => item.month === today)
-    }
+    },
+    getDayTimeLength: ({ dayTime }) => dayTime.length
   },
   mutations: {
     INSTER_EVENT ({ toDoEvent }, payload) {
@@ -57,6 +61,9 @@ const store = new Vuex.Store({
       allDate.time += 25
       allDate.eventNum += 1
       allDate.average = allDate.time / allDate.eventNum
+    },
+    CHANGE_USER_DATA (state, payload) {
+      state.userData = payload
     }
   },
   actions: {
@@ -77,6 +84,17 @@ const store = new Vuex.Store({
     },
     changeAllDate ({ commit }) {
       commit('CHANGE_ALL_DATE')
+    },
+    getUserData ({ commit }) {
+      return new Promise(resolve => {
+        instance.get(api.getUser).then(res => {
+          if (res.code === 200) {
+            this.userData = res.data
+            commit('CHANGE_USER_DATA', res.data.user)
+            resolve(res)
+          }
+        })
+      })
     }
   },
   plugins: [

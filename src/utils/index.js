@@ -14,4 +14,17 @@ instance.interceptors.response.use(
   }
 )
 
+instance.interceptors.request.use(
+  config => {
+    let token = localStorage.getItem('token')
+    if (token) {
+      config.headers.token = token
+      return config
+    } else {
+      return config
+    }
+  },
+  err => Promise.reject(err)
+)
+
 export { instance }

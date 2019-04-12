@@ -33,7 +33,7 @@
                for="code">
           <p>请输入验证码</p>
           <div class="codeWrap-bottom">
-            <lr-input v-model="code"
+            <lr-input v-model="formData.code"
                       :max='6'>
               <i class="iconfont icon-yanzhengma4"
                  slot="icon"></i>
@@ -48,7 +48,8 @@
           </div>
         </label>
       </div>
-      <Button class="btn1">注册</Button>
+      <Button class="btn1"
+              @click="handleRegister">立即注册</Button>
       <router-link class="jumpLogin"
                    :to="{name: '111'}">
         <div>已有账号？立即登录</div>
@@ -72,10 +73,10 @@ export default {
     return {
       formData: {
         phone: '',
-        password: ''
+        password: '',
+        code: ''
       },
       type: 'password',
-      code: '',
       codeText: '获取验证码',
       isSendCode: false
     }
@@ -111,6 +112,42 @@ export default {
           message: '不是合法手机号',
           duration: 800
         })
+      }
+    },
+    handleRegister () {
+      let phoneStatus = validator.isMobilePhone(this.formData.phone, 'zh-CN')
+      let passwordStatus = validator.isLength(this.formData.password, { min: 6, max: 20 })
+      if (phoneStatus && passwordStatus && this.isSendCode) {
+        this.$axios.post(this.$api.register, {
+          phone: this.formData.phone,
+          code: this.formData.code,
+          password: this.formData.password
+        }).then(res => {
+          Toast({
+            message: res.msg,
+            duration: 1000
+          })
+          setTimeout(() => {
+            this.$router.push({ name: '111' })
+          }, 1000)
+        })
+      } else {
+        if (!phoneStatus) {
+          Toast({
+            message: '请输入合法手机号',
+            duration: 800
+          })
+        } else if (!passwordStatus) {
+          Toast({
+            message: '密码长度应大于6位小于20位',
+            duration: 800
+          })
+        } else if (!this.isSendCode) {
+          Toast({
+            message: '请先获取验证码',
+            duration: 800
+          })
+        }
       }
     }
   }

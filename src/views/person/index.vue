@@ -10,7 +10,56 @@
       </div>
     </NavBar>
     <div class="empty"></div>
-    <page></page>
+    <div class="person-top"
+         v-if="!userData">
+      <div class="imgWrap">
+        <img src="@/assets/qiu.jpg"
+             alt="@/assets/qiu.jpg">
+      </div>
+      <div class="wrap">
+        <router-link :to="{path: '/111'}">
+          <div class="wrap-top">
+            <div class="jumpLogin">
+              <img src="@/assets/tomato.jpg"
+                   alt="@/assets/tomato.jpg">
+            </div>
+            <div class="numText">
+              共专注1天
+            </div>
+          </div>
+        </router-link>
+        <div class="wrap-bottom">
+          <div>未登录</div>
+          <div>点击默认头像登录</div>
+        </div>
+      </div>
+    </div>
+    <div class="person-top"
+         v-else>
+      <div class="imgWrap">
+        <img src="@/assets/qiu.jpg"
+             alt="@/assets/qiu.jpg">
+      </div>
+      <div class="wrap">
+        <div class="wrap-top">
+          <div class="jumpLogin">
+            <img :src=" userData.avatar || '@/assets/tomato.jpg'"
+                 alt="@/assets/tomato.jpg">
+          </div>
+          <span class="numText">
+            共专注{{daytimeLength}}天
+          </span>
+        </div>
+        <div class="wrap-bottom">
+          <div>
+            {{userData.username || userData.phone }}
+          </div>
+          <div>
+            {{ userData.desc || '千里之行，始于足下' }}
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -21,44 +70,32 @@ export default {
   components: {
     NavBar,
     page
+  },
+  data () {
+    return {
+    }
+  },
+  created () {
+    this.getUserMsg()
+  },
+  methods: {
+    getUserMsg () {
+      let token = localStorage.getItem('token')
+      if (token) {
+        this.$store.dispatch('getUserData')
+      }
+    }
+  },
+  computed: {
+    daytimeLength () {
+      return this.$store.getters.getDayTimeLength
+    },
+    userData () {
+      return this.$store.state.userData
+    }
   }
 }
 </script>
 
-<style scoped lang='scss'>
-@import "@/style/scss/p2r.scss";
-.Wrap {
-  position: relative;
-}
-.empty {
-  height: p2r(154);
-}
-.left {
-  height: p2r(154);
-  line-height: p2r(154);
-  font-size: p2r(40);
-  color: #fff;
-}
-
-.right {
-  display: flex;
-  justify-content: space-between;
-  width: p2r(200);
-  height: p2r(154);
-
-  .iconfont {
-    font-size: p2r(40);
-    color: #fff;
-    align-self: center;
-    flex: 1;
-  }
-}
-/deep/.van-nav-bar {
-  height: p2r(154);
-  background-color: #f85648;
-}
-
-/deep/.van-nav-bar__right {
-  right: 0;
-}
+<style scoped lang='scss' src='./person.scss'>
 </style>
