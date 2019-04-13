@@ -12,10 +12,12 @@
       </div>
       <div class="wrap">
         <div class="wrap-top">
-          <div class="jumpLogin">
-            <img :src=" userData.avatar || '@/assets/tomato.jpg'"
-                 alt="@/assets/tomato.jpg">
-          </div>
+          <uploadFile @success='changeAvatar'
+                      class="avatar">
+            <img class="img"
+                 :src="userData.avatar || tomato"
+                 :alt="tomato">
+          </uploadFile>
           <div class="messageWrap">
             <div class="user">
               账号：{{ userData.phone }}
@@ -44,110 +46,54 @@
 </template>
 
 <script>
-import { NavBar } from 'vant'
+import { NavBar, Toast } from 'vant'
+import uploadFile from './components/uploadFile'
+import tomato from '@/assets/tomato.jpg'
 export default {
   components: {
-    NavBar
+    NavBar,
+    uploadFile
+  },
+  data () {
+    return {
+      tomato
+    }
   },
   methods: {
     logOut () {
       localStorage.removeItem('token')
       this.$store.commit('CHANGE_USERDATA', {})
+      this.$router.push({ name: 'person' })
+    },
+    changeAvatar (url) {
+      this.$axios.put(this.$api.changeUser, { avatar: url }).then(res => {
+        if (res.code === 200) {
+          new Promise(resolve => {
+            this.$store.dispatch('getUserData')
+            console.log(111)
+            resolve()
+          }).then(() => {
+            console.log(222)
+            Toast({
+              message: '头像修改成功',
+              duration: 1000
+            })
+          })
+        } else {
+          Toast({
+            message: '头像修改失败'
+          })
+        }
+      })
     }
   },
   computed: {
     userData () {
-      return this.$store.state.userData
+      return this.$store.state.userData.user
     }
   }
 }
 </script>
 
-<style lang="scss" scoped>
-@import "@/style/scss/p2r.scss";
-
-.empty {
-  height: p2r(154);
-}
-.left {
-  height: p2r(154);
-  line-height: p2r(154);
-  font-size: p2r(40);
-  color: #fff;
-}
-
-/deep/.van-nav-bar {
-  height: p2r(154);
-  background-color: #f85648;
-}
-
-/deep/.van-nav-bar__right {
-  right: 0;
-}
-
-.person-top {
-  position: relative;
-  height: p2r(360);
-  clear: both;
-
-  .imgWrap {
-    z-index: -100;
-    position: absolute;
-    // top: p2r(154);
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    overflow: hidden;
-    height: p2r(360);
-  }
-
-  .wrap {
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    height: p2r(360);
-
-    .wrap-top {
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      width: p2r(560);
-      height: p2r(360);
-
-      .jumpLogin {
-        overflow: hidden;
-        width: p2r(160);
-        height: p2r(160);
-        border-radius: 50%;
-        background: #fff;
-      }
-
-      .messageWrap {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        margin-left: p2r(70);
-        height: p2r(160);
-        color: #fff;
-      }
-    }
-  }
-}
-
-.modifyItem {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  margin-top: p2r(40);
-  height: p2r(100);
-  // background: #f0f5f5;
-  font-size: p2r(30);
-  font-weight: bolder;
-
-  .text {
-    flex: 1;
-    padding-left: p2r(40);
-  }
-}
+<style lang="scss" scoped src='@/style/scss/userMsg.scss'>
 </style>

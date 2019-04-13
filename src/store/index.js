@@ -89,9 +89,9 @@ const store = new Vuex.Store({
       return new Promise(resolve => {
         instance.get(api.getUser).then(res => {
           if (res.code === 200) {
-            this.userData = res.data
-            commit('CHANGE_USER_DATA', res.data.user)
-            resolve(res)
+            // this.userData = res.data
+            commit('CHANGE_USER_DATA', res.data)
+            resolve(res.data)
           }
         })
       })

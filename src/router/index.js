@@ -56,6 +56,11 @@ const router = new Router({
       path: '/userMsg',
       name: 'userMsg',
       component: () => import('@/views/person/userMsg')
+    },
+    {
+      path: '/111',
+      name: '111',
+      component: () => import('@/views/test/changeAvatar')
     }
   ]
 })

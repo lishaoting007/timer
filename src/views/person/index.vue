@@ -43,8 +43,9 @@
       <div class="wrap">
         <div class="wrap-top">
           <div class="jumpLogin">
-            <img :src=" userData.avatar || '@/assets/tomato.jpg'"
-                 alt="@/assets/tomato.jpg">
+            <img class="img"
+                 :src=" userData.avatar || tomato"
+                 :alt="tomato">
           </div>
           <span class="numText">
             共专注{{daytimeLength}}天
@@ -70,6 +71,7 @@
 </template>
 
 <script>
+import tomato from '@/assets/tomato.jpg'
 import { NavBar } from 'vant'
 export default {
   components: {
@@ -77,6 +79,7 @@ export default {
   },
   data () {
     return {
+      tomato
     }
   },
   created () {
@@ -99,7 +102,7 @@ export default {
       return this.$store.getters.getDayTimeLength
     },
     userData () {
-      return this.$store.state.userData
+      return this.$store.state.userData.user
     },
     token () {
       return localStorage.getItem('token')
