@@ -2,7 +2,10 @@
   <div>
     <NavBar :fixed='true'>
       <div class="left"
-           slot="left">个人信息</div>
+           @click="jumpPerson"
+           slot="left">返回</div>
+      <div class="left"
+           slot="title">个人信息</div>
     </NavBar>
     <div class="empty"></div>
     <div class="person-top">
@@ -25,17 +28,23 @@
             <div class="username">
               昵称：{{userData.username || userData.phone }}
             </div>
+            <div class="desc">
+              {{userData.desc || "千里之行，始于足下" }}
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="modifyItem">
+    <div class="modifyItem"
+         @click="showName">
       <div class="text">修改昵称</div>
     </div>
-    <div class="modifyItem">
+    <div class="modifyItem"
+         @click="showDesc">
       <div class="text">修改个性签名</div>
     </div>
-    <div class="modifyItem">
+    <div class="modifyItem"
+         @click="showPsd">
       <div class="text">修改密码</div>
     </div>
     <div class="modifyItem"
@@ -49,10 +58,12 @@
 import { NavBar, Toast } from 'vant'
 import uploadFile from './components/uploadFile'
 import tomato from '@/assets/tomato.jpg'
+import changeInput from '@/views/person/components/changeInput'
 export default {
   components: {
     NavBar,
-    uploadFile
+    uploadFile,
+    changeInput
   },
   data () {
     return {
@@ -60,6 +71,9 @@ export default {
     }
   },
   methods: {
+    jumpPerson () {
+      this.$router.push({ name: 'person' })
+    },
     logOut () {
       localStorage.removeItem('token')
       this.$store.commit('CHANGE_USERDATA', {})
@@ -85,6 +99,15 @@ export default {
           })
         }
       })
+    },
+    showName () {
+      this.$router.push({ name: 'changeName' })
+    },
+    showDesc () {
+      this.$router.push({ name: 'changeDesc' })
+    },
+    showPsd () {
+      this.$router.push({ name: 'changePsd' })
     }
   },
   computed: {
