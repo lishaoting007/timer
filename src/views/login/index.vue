@@ -4,9 +4,11 @@
       <img class="bgimg"
            src="@/assets/fengguang.jpg"
            alt="@/assets/fengguang.jpg">
-      <Logo></Logo>
+      <router-link :to="{path: '/person'}">
+        <Logo></Logo>
+      </router-link>
       <div class="text">
-        番茄Todo 你的自我提升助手
+        点击图标返回个人中心
       </div>
       <div class="inputWrap">
         <label class="phoneWrap">

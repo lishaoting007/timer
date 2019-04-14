@@ -1,15 +1,12 @@
 <template>
-  <div>
+  <div class="changeInputWrap">
+    <slot name="icon"
+          class="slot"></slot>
     <input class="input"
            :type="type"
            :value="value"
            @change="handleChange"
            :placeholder="placeholder">
-    <input class="input"
-           :type="type"
-           :value="value"
-           v-show="type==='password'"
-           placeholder="请输入新密码">
   </div>
 </template>
 
@@ -27,7 +24,8 @@ export default {
       type: String,
       default: 'text'
     },
-    value: String
+    value: String,
+    title: String
   },
   data () {
     return {
@@ -37,6 +35,13 @@ export default {
     handleChange ($event) {
       this.$emit('input', $event.target.value)
       this.$emit('change', $event.target.value)
+    },
+    toggleType () {
+      if (this.type === 'password') {
+        this.type = 'text'
+      } else {
+        this.type = 'password'
+      }
     }
   }
 }
@@ -44,13 +49,32 @@ export default {
 
 <style lang="scss">
 @import "@/style/scss/p2r.scss";
-.input {
+
+.changeInputWrap {
+  display: flex;
+  justify-content: flex-start;
+  align-content: center;
   margin-top: p2r(90);
-  padding-left: p2r(20);
   width: p2r(660);
-  height: p2r(100);
-  border: none;
   border-bottom: p2r(4) solid #f85648;
   font-size: p2r(36);
+
+  .slot {
+    flex: 1;
+  }
+  .title {
+    padding-left: p2r(10);
+    height: p2r(100);
+    line-height: p2r(100);
+    font-size: p2r(32);
+  }
+
+  .input {
+    flex: 1;
+    align-self: flex-end;
+    border: none;
+    padding-left: p2r(20);
+    line-height: p2r(100);
+  }
 }
 </style>

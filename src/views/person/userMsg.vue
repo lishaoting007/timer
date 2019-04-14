@@ -84,14 +84,15 @@ export default {
         if (res.code === 200) {
           new Promise(resolve => {
             this.$store.dispatch('getUserData')
-            console.log(111)
             resolve()
           }).then(() => {
-            console.log(222)
             Toast({
               message: '头像修改成功',
               duration: 1000
             })
+            setTimeout(() => {
+              this.$router.replace('/userMsg')
+            }, 1000)
           })
         } else {
           Toast({

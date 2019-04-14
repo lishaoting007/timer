@@ -75,42 +75,5 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-@import "@/style/scss/p2r.scss";
-.left {
-  height: p2r(154);
-  line-height: p2r(154);
-  font-size: p2r(40);
-  color: #fff;
-}
-
-/deep/.van-nav-bar {
-  height: p2r(154);
-  background-color: #f85648;
-}
-
-/deep/.van-nav-bar__right {
-  right: 0;
-}
-.wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  .btnWrap {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    margin: p2r(100) p2r(63) p2r(26);
-    width: p2r(660);
-
-    .btn {
-      height: p2r(90);
-      line-height: p2r(90);
-      font-size: p2r(40);
-      letter-spacing: 4px;
-      color: #fff;
-      background: #f85648;
-    }
-  }
-}
+<style lang="scss" scoped src='@/style/scss/change.scss'>
 </style>

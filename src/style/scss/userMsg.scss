@@ -64,12 +64,18 @@
       }
 
       .messageWrap {
+        flex: 1;
         display: flex;
         flex-direction: column;
         justify-content: space-around;
+        overflow: hidden;
         margin-left: p2r(70);
         height: p2r(160);
         color: #fff;
+
+        .desc {
+          overflow: hidden;
+        }
       }
     }
   }

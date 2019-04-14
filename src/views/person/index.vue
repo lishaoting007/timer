@@ -24,7 +24,7 @@
                    alt="@/assets/tomato.jpg">
             </div>
             <div class="numText">
-              共专注1天
+              共专注{{daytimeLength}}天
             </div>
           </div>
         </router-link>

@@ -40,7 +40,7 @@
 
 .person-top {
   position: relative;
-  height: p2r(280);
+  height: p2r(300);
   clear: both;
 
   .imgWrap {
@@ -52,7 +52,7 @@
     right: 0;
     bottom: 0;
     overflow: hidden;
-    height: p2r(280);
+    height: p2r(300);
 
     .img {
       width: 100%;
@@ -91,6 +91,7 @@
     }
 
     .wrap-bottom {
+      overflow: hidden;
       margin-top: p2r(24);
       color: #fff;
       margin-left: p2r(16);
