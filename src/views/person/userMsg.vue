@@ -76,7 +76,7 @@ export default {
     },
     logOut () {
       localStorage.removeItem('token')
-      this.$store.commit('CHANGE_USERDATA', {})
+      this.$store.commit('CHANGE_USER_DATA', {})
       this.$router.push({ name: 'person' })
     },
     changeAvatar (url) {

@@ -48,7 +48,7 @@
     top: p2r(436);
     left: p2r(100);
     width: p2r(554);
-    height: p2r(176);
+    // height: p2r(176);
 
     .addTop {
       display: flex;
@@ -76,24 +76,34 @@
 
     .addBottom {
       display: flex;
+      flex-direction: column;
       justify-content: flex-start;
       width: p2r(554);
-      height: p2r(80);
       background: #fff;
 
-      .iconfont {
-        width: p2r(36);
-        height: p2r(80);
-        line-height: p2r(80);
-        color: #eee;
-        font-size: p2r(36);
-      }
-
-      .input {
-        width: p2r(484);
-        height: p2r(80);
-        border: 0;
+      .iconInputWrap {
+        display: flex;
+        align-items: flex-end;
+        margin: p2r(20) p2r(30);
+        width: p2r(494);
         border-bottom: p2r(2) solid #f85648;
+
+        .iconfont {
+          padding-left: p2r(10);
+          // width: p2r(36);
+          height: p2r(80);
+          line-height: p2r(80);
+          color: #f85648;
+          font-size: p2r(36);
+        }
+
+        .input {
+          flex: 1;
+          // padding-left: p2r(20);
+          // width: p2r(484);
+          height: p2r(80);
+          border: 0;
+        }
       }
     }
   }
@@ -121,7 +131,7 @@
         font-size: p2r(50);
         // text-decoration: line-through; // 贯穿线
         text-align: left;
-        background: #fff;
+        background: #f0f5f5;
         text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
       }
 

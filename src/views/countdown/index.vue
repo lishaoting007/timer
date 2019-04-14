@@ -13,7 +13,7 @@
     <div class="ringWrap">
       <Ring class="ring"
             ref='ring'
-            :sendName='name'
+            :sendName='currentEvent.name'
             @countdownShow='toggleCountShow'
             @sendStart='startCountdown'
             @sendEnd='endCountdown'>
@@ -40,7 +40,7 @@
     </div>
     <div class="title">
       <div>
-        当前任务：{{ name }}
+        当前任务：{{ currentEvent.name }}
       </div>
       <div>正在进行中</div>
     </div>
@@ -52,8 +52,7 @@
       <i class="iconfont icon-stop-01"
          @click="abortCountdown"
          v-show="!isShow"></i>
-      <i class="iconfont icon-k-i-reset"
-         @click="circulation"></i>
+      <i class="iconfont icon-k-i-reset"></i>
       <i class="iconfont icon-jieshu"
          @click="endjump"></i>
     </div>
@@ -71,7 +70,6 @@ export default {
   },
   data () {
     return {
-      time: 25 * 60 * 1000,
       timeOut: 5 * 60 * 1000,
       isShow: true,
       showCountdown: true
@@ -104,10 +102,6 @@ export default {
     toggleCountShow (data) {
       this.showCountdown = data
     },
-    circulation () {
-      MessageBox.confirm('确定').then(action => {
-      })
-    },
     endjump () {
       MessageBox.confirm('确定放弃当前计时？').then(action => {
         this.endCountdown()
@@ -116,8 +110,11 @@ export default {
     }
   },
   computed: {
-    name () {
+    currentEvent () {
       return this.$store.state.eventIndex
+    },
+    time () {
+      return this.currentEvent.time * 60 * 1000
     }
   },
   watch: {

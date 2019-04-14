@@ -45,7 +45,7 @@ export default {
       if (this.currentRate <= 0) {
         return false
       }
-      this.currentRate -= 50
+      this.currentRate -= (100 / this.time / 60)
     },
     clearMinus () {
       this.toggleStart = false
@@ -64,6 +64,9 @@ export default {
         color = '#5cb85c'
       }
       return color
+    },
+    time () {
+      return this.$store.state.eventIndex.time
     }
   },
   watch: {
@@ -73,8 +76,8 @@ export default {
         const date = new Date()
         const today = moment(date).format('YYYY年MM月DD日')
         const thisMonth = moment(date).format('YYYY年MM月')
-        this.$store.dispatch('insertFinishEvent', { date: today, name: this.sendName, time: 25 })
-        this.$store.dispatch('insertDayTime', { date: today, time: 25, eventNum: 1, month: thisMonth })
+        this.$store.dispatch('insertFinishEvent', { date: today, name: this.sendName, time: this.time })
+        this.$store.dispatch('insertDayTime', { date: today, time: this.time, eventNum: 1, month: thisMonth })
         this.$store.dispatch('changeAllDate')
       }
     }

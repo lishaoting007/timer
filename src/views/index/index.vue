@@ -29,10 +29,20 @@
             </div>
           </div>
           <div class="addBottom">
-            <i class="iconfont icon-shijian"></i>
-            <input type="text"
-                   class="input"
-                   v-model="cellItem.name">
+            <div class="iconInputWrap">
+              <i class="iconfont icon-jiahao"></i>
+              <input type="text"
+                     class="input"
+                     placeholder="请输入待办事项（最高8位）"
+                     v-model="cellItem.name">
+            </div>
+            <div class="iconInputWrap">
+              <i class="iconfont icon-shijian"></i>
+              <input type="text"
+                     class="input"
+                     placeholder="请输入25以内整数"
+                     v-model="cellItem.time">
+            </div>
           </div>
         </div>
       </transition-group>
@@ -44,11 +54,11 @@
                    :key="index">
           <span slot="left"
                 class="left"
-                @click="jumpCountdown(item.name)">Start</span>
+                @click="jumpCountdown(item)">Start</span>
           <CellGroup>
             <Cell class="cellItem"
                   :title="item.name"
-                  value="25min" />
+                  :value="item.time+'min' || '25min'" />
           </CellGroup>
           <span slot="right"
                 class="right"
@@ -63,6 +73,7 @@
 
 <script>
 import { SwipeCell, Dialog, Cell, CellGroup, NavBar, Toast } from 'vant'
+import Validator from 'validator'
 export default {
   name: 'index',
   components: {
@@ -74,7 +85,10 @@ export default {
   data () {
     return {
       isShow: false,
-      cellItem: { name: '' }
+      cellItem: {
+        name: '',
+        time: ''
+      }
     }
   },
   methods: {
@@ -82,12 +96,14 @@ export default {
       this.isShow = true
     },
     addCell () {
-      if (this.cellItem.name) {
+      let name = Validator.isLength(this.cellItem.name, { min: 1, max: 8 })
+      let time = Validator.isInt(this.cellItem.time, { min: 1, max: 25 })
+      if (name && time) {
         this.$store.dispatch('insertEvent', this.cellItem)
         this.isShow = false
       } else {
         Toast({
-          message: '内容不能为空',
+          message: '请按提示输入正确内容',
           duration: 1000
         })
       }

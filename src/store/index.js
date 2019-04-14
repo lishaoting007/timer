@@ -8,7 +8,10 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    toDoEvent: [{ name: '向右滑动开始' }, { name: '向左滑动删除' }], // [{name}]
+    toDoEvent: [
+      { name: '向右滑动开始', time: 1 },
+      { name: '向左滑动删除', time: 1 }
+    ], // [{name}]
     eventIndex: '', // {name}
     finishEvent: [], // [{date: xxxx年xx月xx日, name, time, year, month, day}]
     dayTime: [], // [{date:, eventNum, month: xxxx年xx月, time}]
