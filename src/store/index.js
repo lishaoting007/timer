@@ -63,7 +63,7 @@ const store = new Vuex.Store({
     CHANGE_ALL_DATE ({ allDate }) {
       allDate.time += 25
       allDate.eventNum += 1
-      allDate.average = allDate.time / allDate.eventNum
+      allDate.average = allDate.time / this.getters.getDayTimeLength
     },
     CHANGE_USER_DATA (state, payload) {
       state.userData = payload
