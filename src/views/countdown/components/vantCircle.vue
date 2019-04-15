@@ -45,8 +45,7 @@ export default {
       if (this.currentRate <= 0) {
         return false
       }
-      // this.currentRate -= (100 / this.time / 60)
-      this.currentRate -= 50
+      this.currentRate -= (100 / this.time / 60)
     },
     clearMinus () {
       this.toggleStart = false
