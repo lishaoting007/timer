@@ -12,7 +12,7 @@ const store = new Vuex.Store({
       { name: '向右滑动开始', time: 1 },
       { name: '向左滑动删除', time: 1 }
     ], // [{name}]
-    eventIndex: '', // {name}
+    eventIndex: '', // {name: '', time: ''}
     finishEvent: [], // [{date: xxxx年xx月xx日, name, time, year, month, day}]
     dayTime: [], // [{date:, eventNum, month: xxxx年xx月, time}]
     allDate: { eventNum: 0, time: 0, average: 0 },
@@ -29,7 +29,8 @@ const store = new Vuex.Store({
     filterDayTimeasMonth: ({ dayTime }) => today => {
       return dayTime.filter(item => item.month === today)
     },
-    getDayTimeLength: ({ dayTime }) => dayTime.length
+    getDayTimeLength: ({ dayTime }) => dayTime.length,
+    parseEventIndex: ({ eventIndex }) => parseInt(eventIndex.time)
   },
   mutations: {
     INSTER_EVENT ({ toDoEvent }, payload) {
@@ -46,7 +47,7 @@ const store = new Vuex.Store({
         n => n.name === payload.name && n.date === payload.date
       )
       if (finishEventItem) {
-        finishEventItem.time += 25
+        finishEventItem.time += this.getters.parseEventIndex
       } else {
         finishEvent.push(payload)
       }
@@ -54,14 +55,14 @@ const store = new Vuex.Store({
     INSERT_DAY_TIME ({ dayTime }, payload) {
       let dayItem = dayTime.find(n => n.date === payload.date)
       if (dayItem) {
-        dayItem.time += 25
+        dayItem.time += this.getters.parseEventIndex
         dayItem.eventNum += 1
       } else {
         dayTime.push(payload)
       }
     },
     CHANGE_ALL_DATE ({ allDate }) {
-      allDate.time += 25
+      allDate.time += this.getters.parseEventIndex
       allDate.eventNum += 1
       allDate.average = allDate.time / this.getters.getDayTimeLength
     },

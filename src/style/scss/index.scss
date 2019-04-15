@@ -133,6 +133,10 @@
         text-align: left;
         background: #f0f5f5;
         text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+
+        .van-cell__title {
+          flex: none;
+        }
       }
 
       .left {

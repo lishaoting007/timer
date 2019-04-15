@@ -101,6 +101,7 @@ export default {
       if (name && time) {
         this.$store.dispatch('insertEvent', this.cellItem)
         this.isShow = false
+        this.cellItem = { name: '', time: '' }
       } else {
         Toast({
           message: '请按提示输入正确内容',

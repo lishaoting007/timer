@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { Circle } from 'vant'
+import { Circle, Toast } from 'vant'
 import moment from 'moment'
 export default {
   name: 'ring',
@@ -45,7 +45,8 @@ export default {
       if (this.currentRate <= 0) {
         return false
       }
-      this.currentRate -= (100 / this.time / 60)
+      // this.currentRate -= (100 / this.time / 60)
+      this.currentRate -= 50
     },
     clearMinus () {
       this.toggleStart = false
@@ -54,7 +55,17 @@ export default {
       this.toggleStart = !this.toggleStart
     },
     sendShow () {
-      this.$emit('countdownShow', false)
+      if (this.time > 15) {
+        this.$emit('countdownShow', false)
+      } else {
+        Toast({
+          message: '小于15分钟没有休息时间',
+          duration: 1000
+        })
+        setTimeout(() => {
+          this.$router.push({ name: 'index' })
+        }, 1000)
+      }
     }
   },
   computed: {
@@ -66,7 +77,7 @@ export default {
       return color
     },
     time () {
-      return this.$store.state.eventIndex.time
+      return this.$store.getters.parseEventIndex
     }
   },
   watch: {

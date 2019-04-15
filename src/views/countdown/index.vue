@@ -122,6 +122,11 @@ export default {
       if (!this.showCountdown) {
         this.$refs.countdown1.start()
       }
+    },
+    timeOut () {
+      if (this.timeOut <= 0) {
+        this.$router.push({ name: 'index' })
+      }
     }
   }
 }
