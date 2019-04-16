@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 const instance = axios.create({
-  // baseURL: process.env.BASE_URL
-  baseURL: 'https://m.yaojunrong.com'
+  baseURL: process.env.BASE_URL
+  // baseURL: 'https://m.yaojunrong.com'
 })
 instance.interceptors.response.use(
   function (response) {

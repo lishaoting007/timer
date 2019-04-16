@@ -45,7 +45,8 @@ export default {
       if (this.currentRate <= 0) {
         return false
       }
-      this.currentRate -= (100 / this.time / 60)
+      // this.currentRate -= (100 / this.time / 60)
+      this.currentRate -= 50
     },
     clearMinus () {
       this.toggleStart = false
@@ -54,7 +55,7 @@ export default {
       this.toggleStart = !this.toggleStart
     },
     sendShow () {
-      if (this.time > 15) {
+      if (this.time >= 15) {
         this.$emit('countdownShow', false)
       } else {
         Toast({

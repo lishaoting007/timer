@@ -121,9 +121,13 @@ export default {
     showCountdown () {
       if (!this.showCountdown) {
         this.$refs.countdown1.start()
+        setTimeout(() => {
+          this.$router.push({ name: 'index' })
+        }, 301000)
       }
     },
     timeOut () {
+      console.log(this.timeOut)
       if (this.timeOut <= 0) {
         this.$router.push({ name: 'index' })
       }
