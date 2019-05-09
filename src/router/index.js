@@ -71,6 +71,11 @@ const router = new Router({
       path: '/changePsd',
       name: 'changePsd',
       component: () => import('@/views/person/changeMsg/changePsd')
+    },
+    {
+      path: '/ranking',
+      name: 'ranking',
+      component: () => import('@/views/person/rankingList')
     }
   ]
 })

@@ -8,26 +8,32 @@
       <div class="allDataBottom">
         <div class="bottom-left">
           <div>番茄个数</div>
-          <div class="bigNum">
+          <div class="bigNum bottom-bottom">
             {{ allDate.eventNum }}
           </div>
         </div>
         <div class="bottom-middle">
-          <div>总计时间</div>
+          <div class="top-top">总计时间</div>
           <div>
-            <!-- <span class="bigNum">5</span>
-            <span>小时</span> -->
             <span class="bigNum">
-              {{ allDate.time }}
+              {{ Math.round(allDate.time / 60) }}
+            </span>
+            <span>小时</span>
+            <span class="bigNum">
+              {{ Math.round(allDate.time % 60) }}
             </span>
             <span>分钟</span>
           </div>
         </div>
         <div class="bottom-right">
-          <div>日均专注</div>
+          <div class="top-top">日均专注</div>
           <div>
             <span class="bigNum">
-              {{ allDate.average }}
+              {{ Math.round(allDate.average / 60) }}
+            </span>
+            <span>小时</span>
+            <span class="bigNum">
+              {{ Math.round(allDate.average % 60) }}
             </span>
             <span>分钟</span>
           </div>
@@ -54,15 +60,19 @@
       <div class="todayDataBottom">
         <div class="bottom-left">
           <div>番茄个数</div>
-          <div class="bigNum">
+          <div class="bigNum bottom-bottom">
             {{ todayDate[0].eventNum }}
           </div>
         </div>
         <div class="bottom-right">
-          <div>总计时间</div>
+          <div class="top-top">总计时间</div>
           <div>
             <span class="bigNum">
-              {{ todayDate[0].time }}
+              {{ Math.round(todayDate[0].time/60) }}
+            </span>
+            <span>小时</span>
+            <span class="bigNum">
+              {{ Math.round(todayDate[0].time%60) }}
             </span>
             <span>分钟</span>
           </div>

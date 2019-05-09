@@ -67,7 +67,8 @@
       <span class="text">修改个人信息</span>
       <i class="iconfont icon-qianjin"></i>
     </div>
-    <div class="modify">
+    <div class="modify"
+         @click="jumpRankingList">
       <i class="iconfont icon-paihangbang"></i>
       <span class="text">排行榜</span>
       <i class="iconfont icon-qianjin"></i>
@@ -99,6 +100,11 @@ export default {
     jumpUserMsg () {
       if (this.token) {
         this.$router.push({ name: 'userMsg' })
+      }
+    },
+    jumpRankingList () {
+      if (this.token) {
+        this.$router.push({ name: 'ranking' })
       }
     }
   },
