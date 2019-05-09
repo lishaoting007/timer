@@ -67,6 +67,11 @@
       <span class="text">修改个人信息</span>
       <i class="iconfont icon-qianjin"></i>
     </div>
+    <div class="modify">
+      <i class="iconfont icon-paihangbang"></i>
+      <span class="text">排行榜</span>
+      <i class="iconfont icon-qianjin"></i>
+    </div>
   </div>
 </template>
 

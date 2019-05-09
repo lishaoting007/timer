@@ -76,7 +76,7 @@ export default {
     }
   },
   methods: {
-    startCountdown () {
+    startCountdown () { // 开始倒计时
       return new Promise(resolve => {
         this.$refs.countdown.start()
         this.toggleShow()
@@ -86,23 +86,23 @@ export default {
         this.$refs.ring.intervalTime()
       })
     },
-    abortCountdown () {
+    abortCountdown () { // 停止倒计时
       this.$refs.countdown.abort()
       this.toggleShow()
       this.$refs.ring.toggle()
     },
-    endCountdown () {
+    endCountdown () { // 结束倒计时（todo时间及休息时间）
       this.$refs.countdown.end()
       this.$refs.countdown1.end()
       this.$refs.ring.clearMinus()
     },
-    toggleShow () {
+    toggleShow () { // 切换开始/暂停按钮
       this.isShow = !this.isShow
     },
-    toggleCountShow (data) {
+    toggleCountShow (data) { // 切换到休息倒计时
       this.showCountdown = data
     },
-    endjump () {
+    endjump () { // 手动终止倒计时并跳转到首页
       MessageBox.confirm('确定放弃当前计时？').then(action => {
         this.endCountdown()
         this.$router.push({ name: 'index' })
@@ -110,26 +110,20 @@ export default {
     }
   },
   computed: {
-    currentEvent () {
+    currentEvent () { // 从store拿到当前todo的名称和时间
       return this.$store.state.eventIndex
     },
-    time () {
+    time () { // 计算倒计时的时间
       return this.currentEvent.time * 60 * 1000
     }
   },
   watch: {
-    showCountdown () {
+    showCountdown () { // 开始休息倒计时并在结束后跳转到首页
       if (!this.showCountdown) {
         this.$refs.countdown1.start()
         setTimeout(() => {
           this.$router.push({ name: 'index' })
         }, 301000)
-      }
-    },
-    timeOut () {
-      console.log(this.timeOut)
-      if (this.timeOut <= 0) {
-        this.$router.push({ name: 'index' })
       }
     }
   }

@@ -13,7 +13,7 @@ const store = new Vuex.Store({
       { name: '向左滑动删除', time: 1 }
     ], // [{name}]
     eventIndex: '', // {name: '', time: ''}
-    finishEvent: [], // [{date: xxxx年xx月xx日, name, time, year, month, day}]
+    finishEvent: [], // [{date: xxxx年xx月xx日, name, time}]
     dayTime: [], // [{date:, eventNum, month: xxxx年xx月, time}]
     allDate: { eventNum: 0, time: 0, average: 0 },
     userData: ''

@@ -17,6 +17,7 @@
 <script>
 import { Circle, Toast } from 'vant'
 import moment from 'moment'
+import { MessageBox } from 'mint-ui'
 export default {
   name: 'ring',
   components: {
@@ -33,7 +34,7 @@ export default {
     }
   },
   methods: {
-    intervalTime () {
+    intervalTime () { // 判断并结束计时器
       this.clearTimer = setInterval(() => {
         if (this.toggleStart === false || this.currentRate <= 0) {
           clearInterval(this.clearTimer)
@@ -41,20 +42,20 @@ export default {
         this.minus()
       }, 1000)
     },
-    minus () {
+    minus () { // 单位时间减少的时间
       if (this.currentRate <= 0) {
         return false
       }
       // this.currentRate -= (100 / this.time / 60)
       this.currentRate -= 50
     },
-    clearMinus () {
+    clearMinus () { // 在手动终止todo时结束计时器
       this.toggleStart = false
     },
-    toggle () {
+    toggle () { // 切换开始暂停按钮
       this.toggleStart = !this.toggleStart
     },
-    sendShow () {
+    sendShow () { // 判断是否有休息时间并且跳转到首页
       if (this.time >= 15) {
         this.$emit('countdownShow', false)
       } else {
@@ -69,20 +70,23 @@ export default {
     }
   },
   computed: {
-    color () {
+    color () { // 判断环的颜色
       let color = '#97FFFF'
       if (this.currentRate === 100) {
         color = '#5cb85c'
       }
       return color
     },
-    time () {
+    time () { // parseInt
       return this.$store.getters.parseEventIndex
     }
   },
   watch: {
     currentRate () {
       if (this.currentRate <= 0) {
+        MessageBox.confirm('是否上传到服务器').then(action => {
+          console.log('上传到服务器')
+        })
         this.sendShow()
         const date = new Date()
         const today = moment(date).format('YYYY年MM月DD日')
