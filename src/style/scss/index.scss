@@ -122,21 +122,35 @@
       color: #565656;
       // background-color: #44a8e0;
 
-      .cellItem {
+      .cellItem,
+      .done {
         justify-content: flex-start;
         align-content: center;
         height: p2r(130);
         line-height: 2;
         color: #969799;
         font-size: p2r(50);
-        // text-decoration: line-through; // 贯穿线
         text-align: left;
         background: #f0f5f5;
         text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 
         .van-cell__title {
           flex: none;
+          padding-left: p2r(30);
+          font-size: p2r(40);
+          line-height: p2r(44);
         }
+
+        .van-cell__value {}
+
+        .van-cell__label {
+          font-size: p2r(30);
+        }
+      }
+
+      .done {
+        background: #222;
+        text-decoration: line-through;
       }
 
       .left {

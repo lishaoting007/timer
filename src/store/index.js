@@ -9,12 +9,18 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     toDoEvent: [
-      { name: '向右滑动开始', time: 1 },
-      { name: '向左滑动删除', time: 1 }
+      { name: '向右滑动开始', time: 1, wantDate: '2019/6/2 10:52', status: 1 },
+      { name: '向左滑动删除', time: 1, wantDate: '2019/6/2 10:52', status: 1 }
     ], // [{name}]
-    eventIndex: '', // {name: '', time: ''}
+    eventIndex: '', // {{name: '', time: ''}, index: ''}
     finishEvent: [], // [{date: xxxx年xx月xx日, name, time}]
-    dayTime: [], // [{date:, eventNum, month: xxxx年xx月, time}]
+    dayTime: [
+      { date: '2019年5月1日', time: 50 },
+      { date: '2019年5月2日', time: 150 },
+      { date: '2019年5月3日', time: 75 },
+      { date: '2019年5月4日', time: 200 },
+      { date: '2019年5月5日', time: 50 }
+    ], // [{date:, eventNum, month: xxxx年xx月, time}]
     allDate: { eventNum: 0, time: 0, average: 0 },
     userData: ''
   },
@@ -30,7 +36,7 @@ const store = new Vuex.Store({
       return dayTime.filter(item => item.month === today)
     },
     getDayTimeLength: ({ dayTime }) => dayTime.length,
-    parseEventIndex: ({ eventIndex }) => parseInt(eventIndex.time)
+    parseEventIndex: ({ eventIndex }) => parseInt(eventIndex.item.time)
   },
   mutations: {
     INSTER_EVENT ({ toDoEvent }, payload) {
@@ -68,6 +74,9 @@ const store = new Vuex.Store({
     },
     CHANGE_USER_DATA (state, payload) {
       state.userData = payload
+    },
+    CHANGE_EVENT_STATUS (state, payload) {
+      state.toDoEvent[payload].status = 0
     }
   },
   actions: {
@@ -99,6 +108,9 @@ const store = new Vuex.Store({
           }
         })
       })
+    },
+    changeEventStatus ({ commit }, payload) {
+      commit('CHANGE_EVENT_STATUS', payload)
     }
   },
   plugins: [

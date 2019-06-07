@@ -2,11 +2,11 @@
   <div>
     <NavBar :fixed='true'>
       <div class="left"
-           slot="left">个人中心</div>
+           slot="title">个人中心</div>
       <div class="right"
            slot="right">
-        <i class="iconfont icon-jiahao"></i>
-        <i class="iconfont icon-gengduo"></i>
+        <!-- <i class="iconfont icon-jiahao"></i>
+        <i class="iconfont icon-gengduo"></i> -->
       </div>
     </NavBar>
     <div class="empty"></div>

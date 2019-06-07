@@ -17,7 +17,7 @@
 <script>
 import { Circle, Toast } from 'vant'
 import moment from 'moment'
-import { MessageBox } from 'mint-ui'
+// import { MessageBox } from 'mint-ui'
 export default {
   name: 'ring',
   components: {
@@ -79,14 +79,14 @@ export default {
     },
     time () { // parseInt
       return this.$store.getters.parseEventIndex
+    },
+    eventIndex () {
+      return this.$store.state.eventIndex.index
     }
   },
   watch: {
     currentRate () {
       if (this.currentRate <= 0) {
-        MessageBox.confirm('是否上传到服务器').then(action => {
-          console.log('上传到服务器')
-        })
         this.sendShow()
         const date = new Date()
         const today = moment(date).format('YYYY年MM月DD日')
@@ -94,6 +94,7 @@ export default {
         this.$store.dispatch('insertFinishEvent', { date: today, name: this.sendName, time: this.time })
         this.$store.dispatch('insertDayTime', { date: today, time: this.time, eventNum: 1, month: thisMonth })
         this.$store.dispatch('changeAllDate')
+        this.$store.dispatch('changeEventStatus', this.eventIndex)
       }
     }
   }

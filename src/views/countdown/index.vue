@@ -111,7 +111,7 @@ export default {
   },
   computed: {
     currentEvent () { // 从store拿到当前todo的名称和时间
-      return this.$store.state.eventIndex
+      return this.$store.state.eventIndex.item
     },
     time () { // 计算倒计时的时间
       return this.currentEvent.time * 60 * 1000

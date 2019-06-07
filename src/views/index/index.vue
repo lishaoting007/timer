@@ -43,6 +43,22 @@
                      placeholder="请输入25以内整数"
                      v-model="cellItem.time">
             </div>
+            <div class="iconInputWrap">
+              <i class="iconfont icon-riqi"></i>
+              <input type="text"
+                     @focus='createPicker'
+                     ref='input3'
+                     class="input"
+                     placeholder="预计开始日期"
+                     v-model="cellItem.wantDate">
+            </div>
+            <DatetimePicker v-show='showPicker'
+                            v-model="currentDate"
+                            type="datetime"
+                            @cancel='concealPicker'
+                            @confirm='changeDate'
+                            :min-date="minDate"
+                            :max-date="maxDate" />
           </div>
         </div>
       </transition-group>
@@ -54,11 +70,12 @@
                    :key="index">
           <span slot="left"
                 class="left"
-                @click="jumpCountdown(item)">Start</span>
+                @click="jumpCountdown(item, index)">Start</span>
           <CellGroup>
-            <Cell class="cellItem"
+            <Cell :class="item.status === 1 ? 'cellItem' : 'done'"
+                  :label='`预计在${item.wantDate}开始`'
                   :title="item.name"
-                  :value="item.time+'min' || '25min'" />
+                  :value="item.time+'分' || '25分'" />
           </CellGroup>
           <span slot="right"
                 class="right"
@@ -72,28 +89,47 @@
 </template>
 
 <script>
-import { SwipeCell, Dialog, Cell, CellGroup, NavBar, Toast } from 'vant'
+import { SwipeCell, Dialog, Cell, CellGroup, NavBar, Toast, DatetimePicker } from 'vant'
 import Validator from 'validator'
+import moment from 'moment'
 export default {
   name: 'index',
   components: {
     SwipeCell,
     Cell,
     CellGroup,
-    NavBar
+    NavBar,
+    DatetimePicker
   },
   data () {
     return {
       isShow: false,
       cellItem: {
         name: '',
-        time: ''
-      }
+        time: '',
+        wantDate: this.currentDate,
+        status: 1 // 1表示未完成 0表示已经完成
+      },
+      minHour: 10,
+      maxHour: 20,
+      minDate: new Date(),
+      maxDate: new Date(2019, 10, 1),
+      currentDate: new Date(),
+      showPicker: false
     }
   },
   methods: {
     showInput () {
       this.isShow = true
+    },
+    createPicker () {
+      this.showPicker = true
+    },
+    concealPicker () {
+      this.showPicker = false
+    },
+    changeDate () {
+      this.cellItem.wantDate = moment(this.currentDate).format('YYYY/MM/DD hh:mm')
     },
     addCell () {
       let name = Validator.isLength(this.cellItem.name, { min: 1, max: 8 })
@@ -101,7 +137,7 @@ export default {
       if (name && time) {
         this.$store.dispatch('insertEvent', this.cellItem)
         this.isShow = false
-        this.cellItem = { name: '', time: '' }
+        this.cellItem = { name: '', time: '', wantDate: '' }
       } else {
         Toast({
           message: '请按提示输入正确内容',
@@ -112,8 +148,8 @@ export default {
     clearShow () {
       this.isShow = false
     },
-    jumpCountdown (value) {
-      this.$store.dispatch('changeEventIndex', value)
+    jumpCountdown (item, index) {
+      this.$store.dispatch('changeEventIndex', { item, index })
       this.$router.push({ name: 'countdown' })
     },
     reduceCell (index) {

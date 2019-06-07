@@ -5,8 +5,10 @@
            slot="left">统计数据</div>
       <div class="right"
            slot="right">
-        <i class="iconfont icon-jiahao"></i>
-        <i class="iconfont icon-gengduo"></i>
+        点击获取最新数据
+
+        <!-- <i class="iconfont icon-jiahao"></i> -->
+        <!-- <i class="iconfont icon-gengduo"></i> -->
       </div>
     </NavBar>
     <div class="empty"></div>
@@ -45,8 +47,10 @@ export default {
 .right {
   display: flex;
   justify-content: space-between;
-  width: p2r(200);
+  width: p2r(240);
   height: p2r(154);
+  line-height: p2r(154);
+  color: #fff;
 
   .iconfont {
     font-size: p2r(40);
