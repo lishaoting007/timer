@@ -8,7 +8,7 @@
            slot="title">修改昵称</div>
     </NavBar>
     <div class="wrap">
-      <changeInput :value='userData.username || userData.phone'
+      <changeInput :value='userData.nickName || userData.phone'
                    :title="'昵称：'"
                    @change="handleChange"
                    placeholder="请输入昵称">
@@ -38,7 +38,7 @@ export default {
   },
   data () {
     return {
-      username: ''
+      username: '用户'
     }
   },
   methods: {
@@ -50,7 +50,7 @@ export default {
     },
     handleSave () {
       this.$axios.put(this.$api.changeUser, {
-        username: this.username
+        nickName: this.username
       }).then(res => {
         if (res.code === 200) {
           this.$store.dispatch('getUserData')
@@ -72,7 +72,7 @@ export default {
   },
   computed: {
     userData () {
-      return this.$store.state.userData.user
+      return this.$store.state.userData
     }
   }
 }

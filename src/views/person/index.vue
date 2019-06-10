@@ -53,7 +53,7 @@
         </div>
         <div class="wrap-bottom">
           <div>
-            {{userData.username || userData.phone }}
+            {{userData.nickName || userData.phone }}
           </div>
           <div>
             {{ userData.desc || '千里之行，始于足下' }}
@@ -113,7 +113,7 @@ export default {
       return this.$store.getters.getDayTimeLength
     },
     userData () {
-      return this.$store.state.userData.user
+      return this.$store.state.userData
     },
     token () {
       return localStorage.getItem('token')

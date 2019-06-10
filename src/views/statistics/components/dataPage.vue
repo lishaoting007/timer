@@ -16,7 +16,7 @@
           <div class="top-top">总计时间</div>
           <div>
             <span class="bigNum">
-              {{ Math.round(allDate.time / 60) }}
+              {{ Math.floor(allDate.time / 60) }}
             </span>
             <span>小时</span>
             <span class="bigNum">
@@ -26,10 +26,10 @@
           </div>
         </div>
         <div class="bottom-right">
-          <div class="top-top">日均专注</div>
+          <div class="top-top">单次平均专注</div>
           <div>
             <span class="bigNum">
-              {{ Math.round(allDate.average / 60) }}
+              {{ Math.floor(allDate.average / 60) }}
             </span>
             <span>小时</span>
             <span class="bigNum">
@@ -61,18 +61,18 @@
         <div class="bottom-left">
           <div>番茄个数</div>
           <div class="bigNum bottom-bottom">
-            {{ todayDate[0].eventNum }}
+            {{ todayDate.eventNum || 0 }}
           </div>
         </div>
         <div class="bottom-right">
           <div class="top-top">总计时间</div>
           <div>
             <span class="bigNum">
-              {{ Math.round(todayDate[0].time/60) }}
+              {{ Math.floor(todayDate.time/60) || 0 }}
             </span>
             <span>小时</span>
             <span class="bigNum">
-              {{ Math.round(todayDate[0].time%60) }}
+              {{ Math.round(todayDate.time%60) || 0 }}
             </span>
             <span>分钟</span>
           </div>
@@ -143,7 +143,7 @@ export default {
       today: new Date(),
       today2: new Date(),
       thisMonth: new Date(),
-      todayDate: [{ eventNum: 0, time: 0 }],
+      todayDate: { eventNum: 0, time: 0 },
       allDate: null
     }
   },
@@ -179,7 +179,12 @@ export default {
     getTodayDate () {
       let istrue = this.$store.getters.filterDayTime(this.daytimeDate)
       if (istrue.length > 0) {
-        this.todayDate = istrue
+        let initialTime = 0
+        for (let i = 0; i < istrue.length; i++) {
+          initialTime = initialTime + istrue[i].time
+        }
+        this.todayDate.eventNum = istrue.length
+        this.todayDate.time = initialTime
       } else {
         this.todayDate = [{ eventNum: 0, time: 0 }]
       }
@@ -190,13 +195,13 @@ export default {
   },
   computed: {
     daytimeDate () {
-      return moment(this.today).format('YYYY年MM月DD日')
+      return moment(this.today).format('YYYY-MM-DD')
     },
     finishdateDate () {
-      return moment(this.today2).format('YYYY年MM月DD日')
+      return moment(this.today2).format('YYYY-MM-DD')
     },
     dayTimeMonth () {
-      return moment(this.thisMonth).format('YYYY年MM月')
+      return moment(this.thisMonth).format('YYYY-MM')
     }
   },
   watch: {

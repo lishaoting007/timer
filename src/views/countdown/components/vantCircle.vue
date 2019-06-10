@@ -82,6 +82,12 @@ export default {
     },
     eventIndex () {
       return this.$store.state.eventIndex.index
+    },
+    userData () {
+      return this.$store.state.userData
+    },
+    token () {
+      return localStorage.getItem('token')
     }
   },
   watch: {
@@ -89,12 +95,20 @@ export default {
       if (this.currentRate <= 0) {
         this.sendShow()
         const date = new Date()
-        const today = moment(date).format('YYYY年MM月DD日')
-        const thisMonth = moment(date).format('YYYY年MM月')
+        const today = moment(date).format('YYYY-MM-DD')
+        const thisMonth = moment(date).format('YYYY-MM')
         this.$store.dispatch('insertFinishEvent', { date: today, name: this.sendName, time: this.time })
         this.$store.dispatch('insertDayTime', { date: today, time: this.time, eventNum: 1, month: thisMonth })
         this.$store.dispatch('changeAllDate')
         this.$store.dispatch('changeEventStatus', this.eventIndex)
+        if (this.token) {
+          new Promise(resolve => {
+            this.$axios.post(this.$api.addTodo, { userId: this.userData._id, name: this.sendName, time: this.time, date: today, month: thisMonth })
+            resolve()
+          }).then(resolve => {
+            console.log('成功上传')
+          })
+        }
       }
     }
   }

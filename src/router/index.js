@@ -76,6 +76,11 @@ const router = new Router({
       path: '/ranking',
       name: 'ranking',
       component: () => import('@/views/person/rankingList')
+    },
+    {
+      path: '/calendar',
+      name: 'calendar',
+      component: () => import('@/views/calendar/index.vue')
     }
   ]
 })

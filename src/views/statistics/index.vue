@@ -4,7 +4,8 @@
       <div class="left"
            slot="left">统计数据</div>
       <div class="right"
-           slot="right">
+           slot="right"
+           @click='getNewestData'>
         点击获取最新数据
 
         <!-- <i class="iconfont icon-jiahao"></i> -->
@@ -19,12 +20,58 @@
 </template>
 
 <script>
-import { NavBar } from 'vant'
+import { NavBar, Toast } from 'vant'
 import dataPage from '@/views/statistics/components/dataPage.vue'
 export default {
   components: {
     NavBar,
     dataPage
+  },
+  data () {
+    return {}
+  },
+  methods: {
+    getNewestData () {
+      const _this = this
+      if (this.token) {
+        this.$axios.get(this.$api.getNewestData, { params: {
+          userId: _this.userData._id
+        } }).then(res => {
+          if (res.code === 200) {
+            new Promise(resolve => {
+              _this.$store.dispatch('updateFinishEvents', res.allTodo)
+              _this.$store.dispatch('updateAllData', { time: res.allTime, eventsNum: res.allTodo.length })
+              resolve()
+            }).then(resolve => {
+              _this.$store.dispatch('changeAllDateAverage')
+              Toast({
+                message: '获取数据成功',
+                duration: 1500
+              })
+              this.$router.push({ name: 'statistics' })
+            })
+          } else {
+            Toast({
+              message: '获取数据失败',
+              duration: 1000
+            })
+          }
+        })
+      } else {
+        Toast({
+          message: '请先登录',
+          duration: 1000
+        })
+      }
+    }
+  },
+  computed: {
+    token () {
+      return localStorage.getItem('token')
+    },
+    userData () {
+      return this.$store.state.userData
+    }
   }
 }
 </script>

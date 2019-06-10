@@ -8,7 +8,8 @@
              slot="right">
           <i class="iconfont icon-jiahao"
              @click="showInput"></i>
-          <i class="iconfont icon-gengduo"></i>
+          <i class="iconfont icon-gengduo"
+             @click="showCalendar"></i>
         </div>
       </NavBar>
       <div class="empty"></div>
@@ -158,6 +159,9 @@ export default {
       }).then(() => {
         this.$store.dispatch('reduceEvent', index)
       })
+    },
+    showCalendar () {
+      this.$router.push({ name: 'calendar' })
     }
   },
   computed: {

@@ -26,7 +26,7 @@
               账号：{{ userData.phone }}
             </div>
             <div class="username">
-              昵称：{{userData.username || userData.phone }}
+              昵称：{{userData.nickName || userData.phone }}
             </div>
             <div class="desc">
               {{userData.desc || "千里之行，始于足下" }}
@@ -113,7 +113,7 @@ export default {
   },
   computed: {
     userData () {
-      return this.$store.state.userData.user
+      return this.$store.state.userData
     }
   }
 }
