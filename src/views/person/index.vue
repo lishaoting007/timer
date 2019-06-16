@@ -73,12 +73,18 @@
       <span class="text">排行榜</span>
       <i class="iconfont icon-qianjin"></i>
     </div>
+    <div class="modify"
+         @click="signIn">
+      <i class="iconfont icon-qiandao"></i>
+      <span class="text">打卡</span>
+      <i class="iconfont icon-qianjin"></i>
+    </div>
   </div>
 </template>
 
 <script>
 import tomato from '@/assets/tomato.jpg'
-import { NavBar } from 'vant'
+import { NavBar, Toast } from 'vant'
 export default {
   components: {
     NavBar
@@ -100,11 +106,43 @@ export default {
     jumpUserMsg () {
       if (this.token) {
         this.$router.push({ name: 'userMsg' })
+      } else {
+        Toast({
+          message: '请先登录',
+          duration: 1000
+        })
       }
     },
     jumpRankingList () {
       if (this.token) {
         this.$router.push({ name: 'ranking' })
+      } else {
+        Toast({
+          message: '请先登录',
+          duration: 1000
+        })
+      }
+    },
+    signIn () {
+      if (this.token) {
+        const date = new Date()
+        const hour = date.getHours()
+        if ((hour > 6) && (hour < 8)) {
+          Toast({
+            message: '打卡成功',
+            duration: 1000
+          })
+        } else {
+          Toast({
+            message: '请在早上6点到8点打卡',
+            duration: 1000
+          })
+        }
+      } else {
+        Toast({
+          message: '请先登录',
+          duration: 1000
+        })
       }
     }
   },

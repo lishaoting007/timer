@@ -8,7 +8,7 @@ const router = new Router({
     {
       path: '/',
       name: 'layout',
-      redirect: '/index',
+      redirect: '/login',
       component: () => import('@/views/layout'),
       children: [
         {

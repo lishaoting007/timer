@@ -12,6 +12,7 @@ module.exports = {
     proxyTable: {
       '/api': {
         target: 'http://todo.lishaoting.cn',
+        // target: 'http://m.yaojunrong.com',
         changeOrigin: true,
         pathRewrite: {
           '/api': '/'
