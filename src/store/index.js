@@ -14,19 +14,21 @@ const store = new Vuex.Store({
     ], // [{name}]
     eventIndex: '', // {{name: '', time: ''}, index: ''}
     finishEvent: [], // [{date: xxxx年xx月xx日, name, time}]
-    dayTime: [
-      { date: '2019-06-07', time: 50 },
-      { date: '2019-06-08', time: 150 },
-      { date: '2019-06-06', time: 75 },
-      { date: '2019-06-02', time: 200 },
-      { date: '2019-06-01', time: 50 }
-    ], // [{date:, eventNum, month: xxxx年xx月, time}]
+    dayTime: [], // [{date:, eventNum, month: xxxx年xx月, time}]
     allDate: { eventNum: 0, time: 0, average: 0 },
     userData: ''
   },
   getters: {
     filterFinishEvent: ({ finishEvent }) => today => {
       return finishEvent.filter(item => item.date === today)
+    },
+    getAllFinishDate: ({ finishEvent }) => {
+      let arr = []
+      for (let i = 0; i < finishEvent.length; i++) {
+        arr.push(finishEvent[i].date)
+      }
+      let newArr = new Set(arr)
+      return Array.from(newArr)
     },
     filterDayTime: ({ finishEvent }) => today => {
       return finishEvent.filter(item => item.date === today)
