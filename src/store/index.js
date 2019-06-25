@@ -16,7 +16,10 @@ const store = new Vuex.Store({
     finishEvent: [], // [{date: xxxx年xx月xx日, name, time}]
     dayTime: [], // [{date:, eventNum, month: xxxx年xx月, time}]
     allDate: { eventNum: 0, time: 0, average: 0 },
-    userData: ''
+    userData: '',
+    strictMode: false, // 严格模式状态
+    allTodoGather: [], // 待办集数据[{name: '', data: [{name: '', time: 0},{name: '', time: 0}]}]
+    futurePlan: [] // 未来计划[{name: '', date: '2019-06-10', desc: '', createTime: '2019-06-10'}]
   },
   getters: {
     filterFinishEvent: ({ finishEvent }) => today => {
@@ -110,6 +113,29 @@ const store = new Vuex.Store({
     UPDATE_ALLDATA (state, payload) {
       state.allDate.time = payload.time
       state.allDate.eventNum = payload.eventsNum
+    },
+    CHANGE_STRICT_MODE (state, payload) {
+      // 改变严格模式状态
+      state.strictMode = payload
+    },
+    ADD_TODO_GATHER (state, payload) {
+      // 添加待办集名称
+      state.allTodoGather.push(payload)
+    },
+    ADD_TODO_TO_GATHER (state, payload) {
+      state.allTodoGather[payload.index].data.push(payload.gatherItem)
+    },
+    DELETE_GATHER_ITEM (state, payload) {
+      state.allTodoGather[payload.gatherIndex].data.splice(
+        payload.gatherItemIndex,
+        1
+      )
+    },
+    DELETE_GATHER (state, payload) {
+      state.allTodoGather.splice(payload, 1)
+    },
+    ADD_FUTURE_PLAN (state, payload) {
+      state.futurePlan.push(payload)
     }
   },
   actions: {
@@ -153,6 +179,24 @@ const store = new Vuex.Store({
     },
     updateAllData ({ commit }, payload) {
       commit('UPDATE_ALLDATA', payload)
+    },
+    changeStrictMode ({ commit }, payload) {
+      commit('CHANGE_STRICT_MODE', payload)
+    },
+    addTodoGather ({ commit }, payload) {
+      commit('ADD_TODO_GATHER', payload)
+    },
+    addTodoToGather ({ commit }, payload) {
+      commit('ADD_TODO_TO_GATHER', payload)
+    },
+    deleteGatherItem ({ commit }, payload) {
+      commit('DELETE_GATHER_ITEM', payload)
+    },
+    deleteGather ({ commit }, payload) {
+      commit('DELETE_GATHER', payload)
+    },
+    addFuturePlan ({ commit }, payload) {
+      commit('ADD_FUTURE_PLAN', payload)
     }
   },
   plugins: [

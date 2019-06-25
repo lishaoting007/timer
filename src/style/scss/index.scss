@@ -1,6 +1,67 @@
 @import "@/style/scss/p2r.scss";
 
+.index-menu {
+  z-index: 2000;
+  position: fixed;
+  right: p2r(56);
+  top: p2r(70);
+  width: p2r(377);
+  font-size: p2r(28);
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+
+  .menu-item {
+    margin: p2r(33);
+    height: p2r(28);
+    line-height: p2r(28);
+  }
+}
+
+.strict-switch {
+  z-index: 100;
+  position: fixed;
+  left: p2r(100);
+  top: p2r(256);
+  width: p2r(554);
+
+  .switch-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: p2r(33);
+    height: p2r(96);
+    background-color: #f85648;
+    color: #fff;
+    font-size: p2r(26);
+    line-height: p2r(96);
+  }
+
+  .switch-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: p2r(26.6) p2r(26);
+    height: p2r(140);
+    background-color: #fff;
+
+    .switch-item-left {
+      .big-font {
+        font-size: p2r(26);
+        color: #000;
+      }
+
+      .small-font {
+        font-size: p2r(20);
+        color: #aaa;
+      }
+    }
+  }
+}
+
 .container {
+
+
   .Wrap {
     position: relative;
   }
@@ -30,17 +91,7 @@
     height: p2r(182);
   }
 
-  .masking {
-    z-index: 30;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(0, 0, 0, 0.7);
-    width: p2r(750);
-    height: p2r(1334);
-  }
+
 
   .addToDo {
     z-index: 998;
@@ -214,4 +265,16 @@
 .v-enter-active,
 .v-leave-active {
   transition: all ease 0.8s;
+}
+
+.masking {
+  z-index: 30;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  width: p2r(750);
+  height: p2r(1334);
 }

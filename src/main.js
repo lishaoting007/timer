@@ -9,19 +9,10 @@ import '@/style/scss/init.scss'
 import store from './store'
 import { instance } from '@/utils'
 import api from '@/utils/api.js'
-import { setupCalendar, Calendar } from 'v-calendar'
-import 'v-calendar/lib/v-calendar.min.css'
 import 'iview/dist/styles/iview.css' // 引入iview样式
-import './iconfont/iconfont.css' // 引入iconfont
-
+// import './iconfont/iconfont.css' // 引入iconfont
 Vue.prototype.$axios = instance // 将axios注册到Vue全局
 Vue.prototype.$api = api // 将接口注册到Vue全局
-
-setupCalendar({
-  firstDayOfWeek: 2 // Monday,
-  // ...other defaults
-})
-Vue.component('v-calendar', Calendar)
 
 Vue.config.productionTip = false
 

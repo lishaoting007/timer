@@ -9,7 +9,7 @@
           <i class="iconfont icon-jiahao"
              @click="showInput"></i>
           <i class="iconfont icon-gengduo"
-             @click="showCalendar"></i>
+             v-click-outside></i>
         </div>
       </NavBar>
       <div class="empty"></div>
@@ -86,11 +86,41 @@
         </SwipeCell>
       </div>
     </div>
+    <div class="index-menu"
+         v-if="menuIsshow">
+      <div class="menu-item"
+           @click="jumpCalendar">历史记录时间轴</div>
+      <div class="menu-item"
+           @click="isShowStrictSwitch">严格模式</div>
+    </div>
+    <transition-group>
+      <div class="strict-switch"
+           v-show="showStrictSwitch"
+           key='switch'>
+        <div class="switch-top">
+          <span>严格模式选项</span>
+          <i class="iconfont icon-cuohao"
+             @click="closeSwitch"></i>
+        </div>
+        <div class="switch-item">
+          <div class='switch-item-left'>
+            <div class="big-font">严格模式</div>
+            <div class="small-font">计时开始后不能暂停、提前完成或取消</div>
+          </div>
+          <van-switch class="switch-item-right"
+                      v-model="strictMode"
+                      size="24px"></van-switch>
+        </div>
+      </div>
+      <div class="masking"
+           key="masking"
+           v-show="showStrictSwitch"></div>
+    </transition-group>
   </div>
 </template>
 
 <script>
-import { SwipeCell, Dialog, Cell, CellGroup, NavBar, Toast, DatetimePicker } from 'vant'
+import { SwipeCell, Dialog, Cell, CellGroup, NavBar, Toast, DatetimePicker, Switch } from 'vant'
 import Validator from 'validator'
 import moment from 'moment'
 export default {
@@ -100,7 +130,26 @@ export default {
     Cell,
     CellGroup,
     NavBar,
-    DatetimePicker
+    DatetimePicker,
+    'van-switch': Switch
+  },
+  directives: {
+    clickOutside: { // 指令的生命周期
+      bind (el, binding, vnode) {
+        let handler = (e) => {
+          if (el.contains(e.target)) { // 是否包含这个dom
+            if (!vnode.context.isShow) {
+              vnode.context.showMenu() // 当前虚拟dom上下文的方法
+            }
+          }
+        }
+        el.handler = handler
+        document.addEventListener('click', handler)
+      },
+      unbind (el) {
+        document.removeEventListener('click', el.handler)
+      }
+    }
   },
   data () {
     return {
@@ -116,7 +165,10 @@ export default {
       minDate: new Date(),
       maxDate: new Date(2019, 10, 1),
       currentDate: new Date(),
-      showPicker: false
+      showPicker: false,
+      menuIsshow: false,
+      strictMode: false,
+      showStrictSwitch: false
     }
   },
   methods: {
@@ -160,13 +212,28 @@ export default {
         this.$store.dispatch('reduceEvent', index)
       })
     },
-    showCalendar () {
-      this.$router.push({ name: 'calendar' })
+    showMenu () {
+      this.menuIsshow = !this.menuIsshow
+    },
+    jumpCalendar () {
+      this.$router.push({ name: 'calendar2' })
+    },
+    isShowStrictSwitch () {
+      this.showStrictSwitch = true
+      this.menuIsshow = false
+    },
+    closeSwitch () {
+      this.showStrictSwitch = false
     }
   },
   computed: {
     cellList () {
       return this.$store.state.toDoEvent
+    }
+  },
+  watch: {
+    strictMode () {
+      this.$store.dispatch('changeStrictMode', this.strictMode)
     }
   }
 }

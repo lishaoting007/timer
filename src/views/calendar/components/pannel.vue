@@ -15,6 +15,10 @@
             {{this.time.year}}年
           </div>
         </div>
+        <i class="iconfont icon-qianjin-copy"
+           @click="prevMonth"></i>
+        <i class="iconfont icon-qianjin"
+           @click="nextMonth"></i>
         <div class="nav-right"
              @click="chooseToday">今天</div>
       </div>
@@ -161,7 +165,6 @@ export default {
     getFinishDate () {
       let data = this.$store.getters.getAllFinishDate
       this.finishiTodoDate = data
-      console.log(data)
     },
     haveTodo (date) {
       let thisDate = moment(date).format('YYYY-MM-DD')

@@ -46,14 +46,18 @@ export default {
       if (this.currentRate <= 0) {
         return false
       }
-      // this.currentRate -= (100 / this.time / 60)
-      this.currentRate -= 50
+      this.currentRate -= (100 / this.time / 60)
+      // this.currentRate -= 50
     },
     clearMinus () { // 在手动终止todo时结束计时器
-      this.toggleStart = false
+      if (!this.strictMode) {
+        this.toggleStart = false
+      }
     },
     toggle () { // 切换开始暂停按钮
-      this.toggleStart = !this.toggleStart
+      if (!this.strictMode) {
+        this.toggleStart = !this.toggleStart
+      }
     },
     sendShow () { // 判断是否有休息时间并且跳转到首页
       if (this.time >= 15) {
@@ -88,6 +92,9 @@ export default {
     },
     token () {
       return localStorage.getItem('token')
+    },
+    strictMode () {
+      return this.$store.state.strictMode
     }
   },
   watch: {

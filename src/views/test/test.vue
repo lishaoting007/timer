@@ -1,18 +1,33 @@
 <template>
   <div>
-    <date-picker v-model="now"></date-picker>
+    <button class="btn"
+            @click="showpop">
+      按钮
+    </button>
+    <van-popup v-model="show"
+               position="bottom"
+               :style="{ height: '10%' }">
+      删除
+    </van-popup>
   </div>
 </template>
 
 <script>
-import datePicker from './components/date-picker'
+import { Popup } from 'vant'
 export default {
   components: {
-    'date-picker': datePicker
+    'van-popup': Popup
   },
   data () {
     return {
-      now: new Date()
+      labelList: ['1', '2'],
+      Loop: null,
+      show: false
+    }
+  },
+  methods: {
+    showpop () {
+      this.show = true
     }
   }
 }

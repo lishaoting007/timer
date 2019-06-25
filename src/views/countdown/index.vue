@@ -63,6 +63,7 @@
 import VueCountdown from '@chenfengyuan/vue-countdown'
 import Ring from './components/vantCircle'
 import { MessageBox } from 'mint-ui'
+import { Toast } from 'vant'
 export default {
   components: {
     Ring,
@@ -87,9 +88,15 @@ export default {
       })
     },
     abortCountdown () { // 停止倒计时
-      this.$refs.countdown.abort()
-      this.toggleShow()
-      this.$refs.ring.toggle()
+      if (!this.strictStatus) {
+        this.$refs.countdown.abort()
+        this.toggleShow()
+        this.$refs.ring.toggle()
+      } else {
+        Toast({
+          message: '严格模式不允许暂停'
+        })
+      }
     },
     endCountdown () { // 结束倒计时（todo时间及休息时间）
       this.$refs.countdown.end()
@@ -103,11 +110,20 @@ export default {
       this.showCountdown = data
     },
     endjump () { // 手动终止倒计时并跳转到首页
-      MessageBox.confirm('确定放弃当前计时？').then(action => {
-        this.endCountdown()
-        this.$router.push({ name: 'index' })
-      })
+      if (!this.strictStatus) {
+        MessageBox.confirm('确定放弃当前计时？').then(action => {
+          this.endCountdown()
+          this.$router.push({ name: 'index' })
+        })
+      } else {
+        Toast({
+          message: '严格模式不允许提前结束'
+        })
+      }
     }
+  },
+  mounted () {
+    this.startCountdown()
   },
   computed: {
     currentEvent () { // 从store拿到当前todo的名称和时间
@@ -115,6 +131,9 @@ export default {
     },
     time () { // 计算倒计时的时间
       return this.currentEvent.time * 60 * 1000
+    },
+    strictStatus () {
+      return this.$store.state.strictMode
     }
   },
   watch: {
