@@ -129,7 +129,7 @@ export default {
   data () {
     return {
       bodyScroll: '',
-      baseInformation: [{ gather: '考研', data: [{ name: '学习', time: 25 }, { name: '跑步', time: 25 }, { name: '始到发', time: 25 }, { name: '水电费', time: 25 }] }, { gather: '写项目', data: [{ name: '学习', time: 25 }, { name: '跑步', time: 25 }] }],
+      // baseInformation: [{ gather: '考研', data: [{ name: '学习', time: 25 }, { name: '跑步', time: 25 }, { name: '始到发', time: 25 }, { name: '水电费', time: 25 }] }, { gather: '写项目', data: [{ name: '学习', time: 25 }, { name: '跑步', time: 25 }] }],
       isShowAddGather: false,
       isShowAddGatherItem: false,
       gatherName: { name: '', data: [] },

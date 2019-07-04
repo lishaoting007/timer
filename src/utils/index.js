@@ -6,11 +6,11 @@ const instance = axios.create({
   // baseURL: 'https://localhost:3000'
 })
 instance.interceptors.response.use(
-  function (response) {
+  response => {
     // 对响应数据做点什么
     return response.data
   },
-  function (error) {
+  error => {
     // 对响应错误做点什么
     return Promise.reject(error)
   }

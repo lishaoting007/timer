@@ -52,7 +52,7 @@ export default {
   methods: {
     Shrink () {
       let AllHiden = this.$refs.AccordionBody
-      let eleMoreHeight = AllHiden.childNodes[0].offsetHeight
+      let eleMoreHeight = AllHiden.childNodes[0].offsetHeight // 像素高度
       AllHiden.style.height = eleMoreHeight + 'px'
       setTimeout(() => {
         if (this.isshow === 0) {

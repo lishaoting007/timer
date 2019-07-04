@@ -46,8 +46,8 @@ export default {
       if (this.currentRate <= 0) {
         return false
       }
-      this.currentRate -= (100 / this.time / 60)
-      // this.currentRate -= 50
+      // this.currentRate -= (100 / this.time / 60)
+      this.currentRate -= 50
     },
     clearMinus () { // 在手动终止todo时结束计时器
       if (!this.strictMode) {

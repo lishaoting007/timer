@@ -18,16 +18,6 @@
            slot="icon"></i>
         统计
       </TabItem>
-      <TabItem id="calendar">
-        <i class="iconfont icon-rili"
-           slot="icon"></i>
-        历史记录
-      </TabItem>
-      <TabItem id="plan">
-        <i class="iconfont icon-bazi"
-           slot="icon"></i>
-        未来计划
-      </TabItem>
       <TabItem id="person">
         <i class="iconfont icon-gerenzhongxin"
            slot="icon"></i>
@@ -70,11 +60,11 @@ export default {
   height: p2r(110);
 }
 .iconfont {
-  font-size: p2r(30);
+  font-size: p2r(40);
 }
 
 /deep/ .mint-tab-item-label {
-  font-size: p2r(20);
+  font-size: p2r(26);
 }
 /deep/ .mint-tab-item {
   display: flex;

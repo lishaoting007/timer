@@ -9,8 +9,8 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     toDoEvent: [
-      { name: '向右滑动开始', time: 1, wantDate: '2019/6/2 10:52', status: 1 },
-      { name: '向左滑动删除', time: 1, wantDate: '2019/6/2 10:52', status: 1 }
+      // { name: '向右滑动开始', time: 1, wantDate: '2019-6-2', status: 1 },
+      // { name: '向左滑动删除', time: 1, wantDate: '2019-6-2', status: 1 }
     ], // [{name}]
     eventIndex: '', // {{name: '', time: ''}, index: ''}
     finishEvent: [], // [{date: xxxx年xx月xx日, name, time}]
@@ -25,10 +25,21 @@ const store = new Vuex.Store({
     filterFinishEvent: ({ finishEvent }) => today => {
       return finishEvent.filter(item => item.date === today)
     },
+    filterTodoEvents: ({ toDoEvent }) => today => {
+      return toDoEvent.filter(item => item.wantDate === today)
+    },
     getAllFinishDate: ({ finishEvent }) => {
       let arr = []
       for (let i = 0; i < finishEvent.length; i++) {
         arr.push(finishEvent[i].date)
+      }
+      let newArr = new Set(arr)
+      return Array.from(newArr)
+    },
+    getAllTodoDate: ({ toDoEvent }) => {
+      let arr = []
+      for (let i = 0; i < toDoEvent.length; i++) {
+        arr.push(toDoEvent[i].wantDate)
       }
       let newArr = new Set(arr)
       return Array.from(newArr)

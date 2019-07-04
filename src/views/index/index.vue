@@ -55,11 +55,10 @@
             </div>
             <DatetimePicker v-show='showPicker'
                             v-model="currentDate"
-                            type="datetime"
+                            type="date"
                             @cancel='concealPicker'
                             @confirm='changeDate'
-                            :min-date="minDate"
-                            :max-date="maxDate" />
+                            :min-date="minDate" />
           </div>
         </div>
       </transition-group>
@@ -90,6 +89,8 @@
          v-if="menuIsshow">
       <div class="menu-item"
            @click="jumpCalendar">历史记录时间轴</div>
+      <div class="menu-item"
+           @click="jumpFuture">未来待办时间轴</div>
       <div class="menu-item"
            @click="isShowStrictSwitch">严格模式</div>
     </div>
@@ -163,7 +164,7 @@ export default {
       minHour: 10,
       maxHour: 20,
       minDate: new Date(),
-      maxDate: new Date(2019, 10, 1),
+      // maxDate: new Date(2019, 10, 1),
       currentDate: new Date(),
       showPicker: false,
       menuIsshow: false,
@@ -182,7 +183,8 @@ export default {
       this.showPicker = false
     },
     changeDate () {
-      this.cellItem.wantDate = moment(this.currentDate).format('YYYY/MM/DD hh:mm')
+      this.cellItem.wantDate = moment(this.currentDate).format('YYYY-MM-DD')
+      this.showPicker = false
     },
     addCell () {
       let name = Validator.isLength(this.cellItem.name, { min: 1, max: 8 })
@@ -190,7 +192,7 @@ export default {
       if (name && time) {
         this.$store.dispatch('insertEvent', this.cellItem)
         this.isShow = false
-        this.cellItem = { name: '', time: '', wantDate: '' }
+        this.cellItem = { name: '', time: '', wantDate: '', status: 1 }
       } else {
         Toast({
           message: '请按提示输入正确内容',
@@ -218,6 +220,9 @@ export default {
     jumpCalendar () {
       this.$router.push({ name: 'calendar2' })
     },
+    jumpFuture () {
+      this.$router.push({ name: 'future' })
+    },
     isShowStrictSwitch () {
       this.showStrictSwitch = true
       this.menuIsshow = false
@@ -228,7 +233,16 @@ export default {
   },
   computed: {
     cellList () {
-      return this.$store.state.toDoEvent
+      let data = this.$store.state.toDoEvent
+      function compare (property) {
+        return function (a, b) {
+          var value1 = new Date(a[property])
+          var value2 = new Date(b[property])
+          return value1 - value2
+        }
+      }
+      let newData = data.sort(compare('wantDate'))
+      return newData
     }
   },
   watch: {

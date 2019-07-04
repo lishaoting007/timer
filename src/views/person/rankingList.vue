@@ -56,7 +56,10 @@ export default {
   },
   data () {
     return {
-      rankingData: ''
+      rankingData: '',
+      bgimg: { background: 'url("@/assets/shui.jpg") no-repeat' },
+      bgsize: { backgroundSize: '100% auto' },
+      bgposition: { backgroundPosition: '0 25%' }
     }
   },
   methods: {

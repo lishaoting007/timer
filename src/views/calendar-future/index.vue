@@ -2,10 +2,10 @@
   <div>
     <NavBar :fixed='true'>
       <div class="left"
-           @click="jumpPerson"
+           @click="jumpIndex"
            slot="left">返回</div>
       <div class="left"
-           slot="title">历史记录时间轴</div>
+           slot="title">未来待办时间轴</div>
       <div class="right"
            slot="right">
         <!-- <i class="iconfont icon-jiahao"></i>
@@ -19,7 +19,7 @@
 
 <script>
 import { NavBar } from 'vant'
-import pannel from './components/pannel'
+import pannel from './components/panel'
 export default {
   components: {
     NavBar,
@@ -31,12 +31,12 @@ export default {
     }
   },
   methods: {
-    jumpPerson () {
-      this.$router.push({ name: 'person' })
+    jumpIndex () {
+      this.$router.push({ name: 'index' })
     }
   }
 }
 </script>
 
-<style scoped lang="scss" src='@/style/scss/calendar.scss'>
+<style scoped lang="scss" src='@/style/scss/calendar-future.scss'>
 </style>

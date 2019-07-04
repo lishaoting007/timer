@@ -33,7 +33,7 @@
                :key="i">
             <span v-for="j in 7"
                   :key="j"
-                  @click="[chooseDate(visibleDays[(i-1) * 7 + (j-1)]), getFinishTodo(visibleDays[(i-1) * 7 + (j-1)])]"
+                  @click="[chooseDate(visibleDays[(i-1) * 7 + (j-1)]), getTodoAsDate(visibleDays[(i-1) * 7 + (j-1)])]"
                   class="cell"
                   :class="[
                     {notCurrentMonth: !isCurrentMonth(visibleDays[(i-1) * 7 + (j-1)])},
@@ -49,7 +49,7 @@
     </div>
     <div class="line"></div>
     <div class="finish"
-         v-for="item in finishTodo"
+         v-for="item in todoEventsOneday"
          :key="item._id">
       <div class="finish-left">
         <div class="circle">
@@ -61,12 +61,13 @@
           <div class="right-top-left">
             {{item.name}}
           </div>
-          <div>已完成</div>
+          <div>{{item.status === 0 ? '已完成' : '未完成'}}</div>
         </div>
-        <!-- <div class="right-middle">点击填写心得</div> -->
+        <div class="right-middle"></div>
         <div class="right-footer">
           <div>{{item.time}}分钟</div>
-          <div class="right-footer-right">100%</div>
+          <div @click='startUnfinish(item)'>{{item.status === 0 ? '' : '点击开始未完成'}}</div>
+          <div class="right-footer-right">{{item.status === 0 ? '100%' : '0%'}}</div>
         </div>
       </div>
     </div>
@@ -112,8 +113,8 @@ export default {
       week: ['日', '一', '二', '三', '四', '五', '六'],
       time: { year, month, day },
       backToday: false,
-      finishTodo: [],
-      finishiTodoDate: []
+      todoEventsOneday: [],
+      todoEvents: []
     }
   },
   methods: {
@@ -157,22 +158,26 @@ export default {
       this.time = utils.getYearMonthDay(new Date())
       this.backToday = true
     },
-    getFinishTodo (date) {
+    getTodoAsDate (date) {
       // let { year, month, day } = utils.getYearMonthDay(date)
       let selectDate = moment(date).format('YYYY-MM-DD')
-      this.finishTodo = this.$store.getters.filterFinishEvent(selectDate)
+      this.todoEventsOneday = this.$store.getters.filterTodoEvents(selectDate)
     },
-    getFinishDate () {
-      let data = this.$store.getters.getAllFinishDate
-      this.finishiTodoDate = data
+    getTodoData () {
+      let data = this.$store.getters.getAllTodoDate
+      this.todoEvents = data
     },
     haveTodo (date) {
       let thisDate = moment(date).format('YYYY-MM-DD')
-      return this.finishiTodoDate.includes(thisDate)
+      return this.todoEvents.includes(thisDate)
+    },
+    startUnfinish (item) {
+      this.$store.dispatch('changeEventIndex', { item, index: 0 })
+      this.$router.push({ name: 'countdown' })
     }
   },
   mounted () {
-    this.getFinishDate()
+    this.getTodoData()
   },
   computed: {
     formatDate () {
@@ -207,7 +212,7 @@ export default {
     justify-content: space-between;
     align-items: center;
     height: p2r(94);
-    background-color: #f85648;
+    background-color: #409eff;
     color: #fff;
 
     .nav-left {
@@ -239,17 +244,17 @@ export default {
     }
     .week {
       margin-top: p2r(30);
-      color: #f85648;
+      color: #409eff;
     }
     .haveTodo {
-      border: 1px solid #f85648;
+      border: 1px solid #409eff;
       border-radius: 50%;
     }
   }
 }
 .line {
   height: p2r(2);
-  background-color: #f85648;
+  background-color: #409eff;
 }
 .finish {
   display: flex;
@@ -263,15 +268,13 @@ export default {
     align-items: center;
     margin: 0 p2r(42);
     width: p2r(5.6);
-    // height: p2r(171.4);
     height: p2r(140);
-
     background-color: #cfd8dc;
 
     .circle {
       width: p2r(28.6);
       height: p2r(28.6);
-      background-color: #ff7466;
+      background-color: #409eff;
       border-radius: 50%;
 
       .small-circle {
@@ -283,16 +286,15 @@ export default {
         width: p2r(17.5);
         height: p2r(17.5);
         border-radius: 50%;
-        background-color: #f85648;
+        background-color: #409eff;
       }
     }
   }
 
   .finish-right {
     width: p2r(620);
-    // height: p2r(160);
     height: p2r(130);
-    background-color: #f85648;
+    background-color: #409eff;
     border-radius: 8px;
     color: #fff;
 
@@ -328,11 +330,11 @@ export default {
 }
 
 .today {
-  color: #f85648;
+  color: #409eff;
   border-radius: 50%;
 }
 .select {
-  background: #f85648;
+  background: #409eff;
   color: #fff;
   border-radius: 50%;
 }

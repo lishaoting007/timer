@@ -73,6 +73,19 @@
       <span class="text">排行榜</span>
       <i class="iconfont icon-qianjin"></i>
     </div>
+
+    <div class="modify"
+         @click="jumpCalendar">
+      <i class="iconfont icon-rili"></i>
+      <span class="text">历史记录时间轴</span>
+      <i class="iconfont icon-qianjin"></i>
+    </div>
+    <div class="modify"
+         @click="jumpFuture">
+      <i class="iconfont icon-bazi"></i>
+      <span class="text">未来计划表</span>
+      <i class="iconfont icon-qianjin"></i>
+    </div>
     <div class="modify"
          @click="signIn">
       <i class="iconfont icon-qiandao"></i>
@@ -144,6 +157,12 @@ export default {
           duration: 1000
         })
       }
+    },
+    jumpCalendar () {
+      this.$router.push({ name: 'calendar' })
+    },
+    jumpFuture () {
+      this.$router.push({ name: 'plan' })
     }
   },
   computed: {

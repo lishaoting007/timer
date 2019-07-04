@@ -2,7 +2,10 @@
   <div>
     <NavBar :fixed='true'>
       <div class="left"
-           slot="left">未来计划</div>
+           @click="jumpPerson"
+           slot="left">返回</div>
+      <div class="left"
+           slot="title">未来目标</div>
       <div class="right"
            slot="right">
         <i class="iconfont icon-jiahao"
@@ -129,6 +132,9 @@ export default {
       // console.log(day)
       this.$store.dispatch('addFuturePlan', this.onePlan)
       this.isShowAddPanel = false
+    },
+    jumpPerson () {
+      this.$router.push({ name: 'person' })
     }
   },
   computed: {

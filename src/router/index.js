@@ -35,28 +35,13 @@ const router = new Router({
             title: '统计'
           }
         },
-        {
-          path: '/calendar',
-          name: 'calendar',
-          component: () => import('@/views/calendar/index.vue'),
-          meta: {
-            title: '历史记录'
-          }
-        },
+
         {
           path: '/todoGather',
           name: 'todoGather',
           component: () => import('@/views/todo-gather'),
           meta: {
             title: '待办集'
-          }
-        },
-        {
-          path: '/plan',
-          name: 'plan',
-          component: () => import('@/views/future-plan/index.vue'),
-          meta: {
-            title: '未来计划'
           }
         }
       ]
@@ -106,11 +91,25 @@ const router = new Router({
       name: 'calendar2',
       component: () => import('@/views/calendar/index2.vue')
     },
-
     {
       path: '/test',
       name: 'test',
       component: () => import('@/views/test/test.vue')
+    },
+    {
+      path: '/future',
+      name: 'future',
+      component: () => import('@/views/calendar-future/index.vue')
+    },
+    {
+      path: '/calendar',
+      name: 'calendar',
+      component: () => import('@/views/calendar/index.vue')
+    },
+    {
+      path: '/plan',
+      name: 'plan',
+      component: () => import('@/views/future-plan/index.vue')
     }
   ]
 })
