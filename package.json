@@ -16,7 +16,7 @@
     "axios": "^0.18.0",
     "echarts": "^4.2.1",
     "iview": "^3.3.3",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "mint-ui": "^2.2.13",
     "moment": "^2.24.0",
     "normalize.css": "^8.0.1",
